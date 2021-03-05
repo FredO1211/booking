@@ -29,7 +29,7 @@ public class Facility {
     Facility() {
     }
 
-    Long getId() {
+    public Long getId() {
         return id;
     }
 

@@ -5,6 +5,7 @@ public final class MessageProvider {
     public static final String START_IN_PAST_MSG = "Start of booking cannot be in the past";
     public static final String START_BEFORE_END_MSG = "Start of booking cannot be before end";
     public static final String EMPTY_NAME_MSG = "Name cannot be empty";
+    public static final String ID_DOES_NOT_EXIST_MSG = "Current id doesn't exists";
     //Booking
     public static final String BOOKING_NEGATIVE_GUEST_COUNT_MSG = "Count of guests cannot be negative!";
     public static final String BOOKING_DISCOUNT_HIGHER_THAN_STAY_COST_MSG = "Discount value cannot be higher than cost of stay!";

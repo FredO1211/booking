@@ -7,6 +7,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class GuestServiceImpl implements GuestService {
@@ -29,6 +30,11 @@ public class GuestServiceImpl implements GuestService {
     @Override
     public List<Guest> getAll(Pageable pageable) {
         return null;
+    }
+
+    @Override
+    public Optional<Guest> getById(Long id) {
+        return Optional.empty();
     }
 
     @Override
