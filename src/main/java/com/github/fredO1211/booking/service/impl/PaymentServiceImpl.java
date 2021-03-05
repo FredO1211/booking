@@ -4,6 +4,7 @@ import com.github.fredO1211.booking.domain.Payment;
 import com.github.fredO1211.booking.service.PaymentService;
 import org.springframework.stereotype.Service;
 
+import java.awt.print.Pageable;
 import java.util.List;
 
 @Service
@@ -19,9 +20,10 @@ public class PaymentServiceImpl implements PaymentService {
     }
 
     @Override
-    public List<Payment> getAll() {
+    public List<Payment> getAll(Pageable pageable) {
         return null;
     }
+
 
     @Override
     public Payment update(Payment payment) {

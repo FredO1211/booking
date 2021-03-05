@@ -5,6 +5,7 @@ import com.github.fredO1211.booking.repository.BookingRepository;
 import com.github.fredO1211.booking.service.BookingService;
 import org.springframework.stereotype.Service;
 
+import java.awt.print.Pageable;
 import java.util.List;
 
 @Service
@@ -26,9 +27,10 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public List<Booking> getAll() {
+    public List<Booking> getAll(Pageable pageable) {
         return null;
     }
+
 
     @Override
     public Booking update(Booking booking) {
