@@ -3,9 +3,9 @@ package com.github.fredO1211.booking.service.impl;
 import com.github.fredO1211.booking.domain.Booking;
 import com.github.fredO1211.booking.repository.BookingRepository;
 import com.github.fredO1211.booking.service.BookingService;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.awt.print.Pageable;
 import java.util.List;
 
 @Service
@@ -31,9 +31,8 @@ public class BookingServiceImpl implements BookingService {
         return null;
     }
 
-
     @Override
-    public Booking update(Booking booking) {
+    public Booking update(Booking toUpdate, Booking source) {
         return null;
     }
 

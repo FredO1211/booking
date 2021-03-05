@@ -2,9 +2,9 @@ package com.github.fredO1211.booking.service.impl;
 
 import com.github.fredO1211.booking.domain.Payment;
 import com.github.fredO1211.booking.service.PaymentService;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.awt.print.Pageable;
 import java.util.List;
 
 @Service
@@ -24,9 +24,8 @@ public class PaymentServiceImpl implements PaymentService {
         return null;
     }
 
-
     @Override
-    public Payment update(Payment payment) {
+    public Payment update(Payment toUpdate, Payment source) {
         return null;
     }
 

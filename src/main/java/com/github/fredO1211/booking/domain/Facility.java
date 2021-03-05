@@ -13,7 +13,7 @@ import java.util.Set;
 public class Facility {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
     @NotBlank(message = MessageProvider.EMPTY_NAME_MSG)
     private String name;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "facility")
@@ -29,12 +29,16 @@ public class Facility {
     Facility() {
     }
 
-    public int getId() {
+    Long getId() {
         return id;
     }
 
-    void setId(int id) {
+    void setId(Long id) {
         this.id = id;
+    }
+
+    void setBasicRentAmount(Integer basicRentAmount) {
+        this.basicRentAmount = basicRentAmount;
     }
 
     public String getName() {
