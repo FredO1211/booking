@@ -2,6 +2,7 @@ package com.github.fredO1211.booking.controller;
 
 import com.github.fredO1211.booking.domain.Facility;
 import com.github.fredO1211.booking.service.FacilityService;
+import com.github.fredO1211.booking.service.exceptions.IncorrectInputDataException;
 import com.github.fredO1211.booking.service.impl.FacilityServiceImpl;
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.data.domain.PageRequest;
@@ -39,8 +40,8 @@ public class FacilityController {
         try {
             var result = service.save(toCreate);
             return ResponseEntity.created(URI.create("/" + result.getId())).body(result);
-        } catch (IllegalArgumentException | ConstraintViolationException e) {
-            return ResponseEntity.badRequest().body(e);
+        } catch (Exception e) {
+            throw new IncorrectInputDataException(e);
         }
     }
 
