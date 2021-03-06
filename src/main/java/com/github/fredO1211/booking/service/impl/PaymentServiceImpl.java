@@ -10,10 +10,6 @@ import java.util.Optional;
 
 @Service
 public class PaymentServiceImpl implements PaymentService {
-    @Override
-    public Payment valid(Payment payment) {
-        return null;
-    }
 
     @Override
     public Payment save(Payment payment) {

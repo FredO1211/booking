@@ -14,7 +14,7 @@ import java.util.Set;
 public class Guest {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
     @NotBlank
     private String name;
     @Email(message = MessageProvider.INVALID_EMAIL_FORMAT_MSG)
@@ -25,7 +25,7 @@ public class Guest {
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "guest")
     private Set<Booking> bookings;
 
-    public Guest(Integer id, @NotBlank String name, @Email(message = MessageProvider.INVALID_EMAIL_FORMAT_MSG) String email, String phoneNumber, String additionalInformation) {
+    public Guest(Long id, @NotBlank String name, @Email(message = MessageProvider.INVALID_EMAIL_FORMAT_MSG) String email, String phoneNumber, String additionalInformation) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -36,11 +36,11 @@ public class Guest {
     public Guest() {
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

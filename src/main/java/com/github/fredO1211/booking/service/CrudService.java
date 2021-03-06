@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Optional;
 
 public interface CrudService<T, S> {
-    T valid(T t);
     T save(T t);
     List<T> getAll(Pageable pageable);
     Optional<T> getById(S id);
