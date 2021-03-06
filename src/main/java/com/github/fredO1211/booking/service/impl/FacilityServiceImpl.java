@@ -47,7 +47,10 @@ public class FacilityServiceImpl implements FacilityService, Validator<Facility>
 
     @Override
     public Facility update(Facility toUpdate, @Valid Facility source) {
-        toUpdate.setName(source.getName());
+        if(!source.getName().equals(toUpdate.getName())){
+            valid(source);
+            toUpdate.setName(source.getName());
+        }
         toUpdate.setBasicRentAmount(source.getBasicRentAmount());
         return repository.save(toUpdate);
     }
