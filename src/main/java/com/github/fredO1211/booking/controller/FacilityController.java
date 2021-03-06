@@ -24,13 +24,13 @@ public class FacilityController {
     }
 
     @GetMapping()
-    ResponseEntity<List<Facility>> readAllBookings() {
+    ResponseEntity<List<Facility>> readAllFacilities() {
         PageRequest page = PageRequest.of(0, 12, Sort.by("name"));
         return ResponseEntity.ok(service.getAll(page));
     }
 
     @GetMapping("/page/{index}")
-    ResponseEntity<List<Facility>> readAllBookings(@PathVariable int index) {
+    ResponseEntity<List<Facility>> readAllFacilities(@PathVariable int index) {
         PageRequest page = PageRequest.of(index, 12, Sort.by("name"));
         return ResponseEntity.ok(service.getAll(page));
     }

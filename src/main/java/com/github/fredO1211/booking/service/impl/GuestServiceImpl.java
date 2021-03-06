@@ -4,6 +4,7 @@ import com.github.fredO1211.booking.domain.Guest;
 import com.github.fredO1211.booking.messageprovider.MessageProvider;
 import com.github.fredO1211.booking.repository.GuestRepository;
 import com.github.fredO1211.booking.service.GuestService;
+import com.github.fredO1211.booking.service.dto.GuestDTO;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -32,6 +33,13 @@ public class GuestServiceImpl implements GuestService {
     @Override
     public Optional<Guest> getById(Long id) {
         return repository.findById(id);
+    }
+
+    public List<Guest> getByProps(GuestDTO guest){
+        return repository.findGuestByProps(
+                guest.getName(),
+                guest.getPhoneNumber(),
+                guest.getEmail());
     }
 
     @Override

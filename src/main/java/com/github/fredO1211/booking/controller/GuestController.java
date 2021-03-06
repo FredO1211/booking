@@ -1,7 +1,8 @@
 package com.github.fredO1211.booking.controller;
 
-import com.github.fredO1211.booking.domain.Facility;
 import com.github.fredO1211.booking.domain.Guest;
+import com.github.fredO1211.booking.service.dto.GuestDTO;
+import com.github.fredO1211.booking.service.exceptions.IncorrectInputDataException;
 import com.github.fredO1211.booking.service.impl.GuestServiceImpl;
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.data.domain.PageRequest;
@@ -12,6 +13,9 @@ import org.springframework.web.bind.annotation.*;
 import java.net.URI;
 import java.util.List;
 
+@RestController
+@CrossOrigin(origins = "*")
+@RequestMapping("/guests")
 public class GuestController {
     final GuestServiceImpl service;
 
@@ -20,15 +24,20 @@ public class GuestController {
     }
 
     @GetMapping()
-    ResponseEntity<List<Guest>> readAllBookings() {
-        PageRequest page = PageRequest.of(0,12, Sort.by("name"));
+    ResponseEntity<List<Guest>> readAllGuests() {
+        PageRequest page = PageRequest.of(0, 12, Sort.by("name"));
         return ResponseEntity.ok(service.getAll(page));
     }
 
     @GetMapping("/page/{index}")
-    ResponseEntity<List<Guest>> readAllBookings(@PathVariable int index) {
-        PageRequest page = PageRequest.of(index,12, Sort.by("name"));
+    ResponseEntity<List<Guest>> readAllGuests(@PathVariable int index) {
+        PageRequest page = PageRequest.of(index, 12, Sort.by("name"));
         return ResponseEntity.ok(service.getAll(page));
+    }
+
+    @PostMapping("/_search")
+    ResponseEntity<List<Guest>> readGuestsByProps(@RequestBody GuestDTO guest) {
+        return ResponseEntity.ok(service.getByProps(guest));
     }
 
     @PostMapping
@@ -36,20 +45,21 @@ public class GuestController {
         try {
             var result = service.save(toCreate);
             return ResponseEntity.created(URI.create("/" + result.getId())).body(result);
-        } catch (IllegalArgumentException | ConstraintViolationException e) {
-            return ResponseEntity.badRequest().body(e);
+        } catch (Exception e) {
+            throw new IncorrectInputDataException(e);
         }
     }
 
     @PutMapping("/{id}")
     ResponseEntity<?> updateFacility(@PathVariable Long id, @RequestBody Guest toUpdate) {
         try {
-            service.update(id,toUpdate);
+            service.update(id, toUpdate);
             return ResponseEntity.noContent().build();
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
     @DeleteMapping("/{id}")
     ResponseEntity<?> deleteFacility(@PathVariable Long id) {
         service.delete(id);
