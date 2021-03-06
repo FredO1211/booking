@@ -1,49 +1,63 @@
 package com.github.fredO1211.booking.service.impl;
 
 import com.github.fredO1211.booking.domain.Guest;
+import com.github.fredO1211.booking.messageprovider.MessageProvider;
 import com.github.fredO1211.booking.repository.GuestRepository;
 import com.github.fredO1211.booking.service.GuestService;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class GuestServiceImpl implements GuestService {
-    private final GuestRepository guestRepository;
+    private final GuestRepository repository;
 
-    public GuestServiceImpl(GuestRepository guestRepository) {
-        this.guestRepository = guestRepository;
+    public GuestServiceImpl(GuestRepository repository) {
+        this.repository = repository;
     }
 
     @Override
-    public Guest valid(Guest guest) {
-        return null;
-    }
-
-    @Override
-    public Guest save(Guest guest) {
-        return null;
+    public Guest save(@Valid Guest guest) {
+        return repository.save(guest);
     }
 
     @Override
     public List<Guest> getAll(Pageable pageable) {
-        return null;
+        return repository.findAll(pageable).getContent();
     }
 
     @Override
     public Optional<Guest> getById(Long id) {
-        return Optional.empty();
+        return repository.findById(id);
     }
 
     @Override
-    public Guest update(Guest toUpdate, Guest source) {
-        return null;
+    public Guest update(Guest toUpdate, @Valid Guest source) {
+        toUpdate.setName(source.getName());
+        toUpdate.setEmail(source.getEmail());
+        toUpdate.setPhoneNumber(source.getPhoneNumber());
+        toUpdate.setAdditionalInformation(source.getAdditionalInformation());
+        return repository.save(toUpdate);
+    }
+
+    @Override
+    public Guest update(Long id, Guest source) {
+        Guest toUpdate = repository.findById(id).orElseThrow(() -> {
+            throw new IllegalArgumentException(MessageProvider.ID_DOES_NOT_EXIST_MSG);
+        });
+        return update(toUpdate, source);
+    }
+
+    @Override
+    public void delete(Long id) {
+        repository.findById(id).ifPresent(this::delete);
     }
 
     @Override
     public void delete(Guest guest) {
-
+        repository.delete(guest);
     }
 }

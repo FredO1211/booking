@@ -18,11 +18,6 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public Booking valid(Booking booking) {
-        return null;
-    }
-
-    @Override
     public Booking save(Booking booking) {
         return null;
     }
