@@ -15,7 +15,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping("/guests")
+@RequestMapping("/payment")
 public class PaymentController {
     final PaymentServiceImpl service;
 
@@ -31,7 +31,7 @@ public class PaymentController {
 
     @GetMapping("/page/{index}")
     ResponseEntity<List<Payment>> readAllGuests(@PathVariable int index) {
-        PageRequest page = PageRequest.of(index, 12, Sort.by("name"));
+        PageRequest page = PageRequest.of(index, 12, Sort.by("code"));
         return ResponseEntity.ok(service.getAll(page));
     }
 

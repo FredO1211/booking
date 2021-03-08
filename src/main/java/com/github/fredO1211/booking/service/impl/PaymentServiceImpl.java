@@ -82,6 +82,4 @@ public class PaymentServiceImpl implements PaymentService, Validator<Payment> {
         }
         return payment;
     }
-
-
 }
