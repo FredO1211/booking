@@ -3,6 +3,7 @@ package com.github.fredO1211.booking.controller;
 import com.github.fredO1211.booking.domain.Guest;
 import com.github.fredO1211.booking.domain.Payment;
 import com.github.fredO1211.booking.service.dto.GuestDTO;
+import com.github.fredO1211.booking.service.exceptions.ElementDoesNotExistException;
 import com.github.fredO1211.booking.service.exceptions.IncorrectInputDataException;
 import com.github.fredO1211.booking.service.impl.GuestServiceImpl;
 import org.hibernate.exception.ConstraintViolationException;
@@ -62,7 +63,9 @@ public class GuestController {
         try {
             service.update(id, toUpdate);
             return ResponseEntity.noContent().build();
-        } catch (IllegalArgumentException e) {
+        } catch (ElementDoesNotExistException e) {
+            throw e;
+        }catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }

@@ -38,7 +38,7 @@ public class PaymentController {
     @GetMapping("/id")
     ResponseEntity<Payment> getPaymentById(@PathVariable Long id) {
         return service.getById(id).map(ResponseEntity::ok)
-                .orElseThrow(ElementDoesNotExistException::new);
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping
@@ -55,12 +55,23 @@ public class PaymentController {
 
     @PutMapping("/{id}")
     ResponseEntity<?> updateFacility(@PathVariable Long id, @RequestBody Payment toUpdate) {
+        try {
             service.update(id, toUpdate);
             return ResponseEntity.noContent().build();
+        } catch (ElementDoesNotExistException e){
+            throw e;
+        } catch (Exception e) {
+            throw new IncorrectInputDataException(e);
+        }
+
     }
 
     @PatchMapping("/{id}")
     ResponseEntity<?> togglePayment(@PathVariable Long id) {
-        return ResponseEntity.noContent().build();
+        try {
+            return ResponseEntity.noContent().build();
+        } catch (ElementDoesNotExistException e){
+            throw e;
+        }
     }
 }

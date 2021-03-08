@@ -69,13 +69,12 @@ public class PaymentServiceImpl implements PaymentService, Validator<Payment> {
     }
 
     @Override
-    public boolean togglePayment(Long id) {
-        var payment = repository.findById(id);
-        return payment.map(result -> {
-            result.setIfAdvancePaid(!result.isAdvancePaid());
-            repository.save(result);
-            return true;
-        }).orElseGet(()->false);
+    public void togglePayment(Long id) {
+        var payment = repository.findById(id)
+                .orElseThrow(ElementDoesNotExistException::new);
+        payment.setIfAdvancePaid(!payment.isAdvancePaid());
+        repository.save(payment);
+
     }
 
     @Override

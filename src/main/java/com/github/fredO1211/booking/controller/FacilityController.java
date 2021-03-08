@@ -47,8 +47,6 @@ public class FacilityController {
         try {
             var result = service.save(toCreate);
             return ResponseEntity.created(URI.create("/" + result.getId())).body(result);
-        } catch (UnavailableNameException e) {
-            throw e;
         } catch (RuntimeException e) {
             throw new IncorrectInputDataException(e);
         }
