@@ -6,8 +6,6 @@ import com.github.fredO1211.booking.service.exceptions.EntityNotFoundException;
 import com.github.fredO1211.booking.service.exceptions.UnavailableNameException;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 
