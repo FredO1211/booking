@@ -1,7 +1,7 @@
 package com.github.fredO1211.booking.controller;
 
 import com.github.fredO1211.booking.domain.Payment;
-import com.github.fredO1211.booking.service.exceptions.ElementDoesNotExistException;
+import com.github.fredO1211.booking.service.exceptions.EntityNotFoundException;
 import com.github.fredO1211.booking.service.exceptions.IncorrectInputDataException;
 import com.github.fredO1211.booking.service.exceptions.UnavailableCodeException;
 import com.github.fredO1211.booking.service.impl.PaymentServiceImpl;
@@ -58,7 +58,7 @@ public class PaymentController {
         try {
             service.update(id, toUpdate);
             return ResponseEntity.noContent().build();
-        } catch (ElementDoesNotExistException e){
+        } catch (EntityNotFoundException e){
             throw e;
         } catch (Exception e) {
             throw new IncorrectInputDataException(e);
@@ -70,7 +70,7 @@ public class PaymentController {
     ResponseEntity<?> togglePayment(@PathVariable Long id) {
         try {
             return ResponseEntity.noContent().build();
-        } catch (ElementDoesNotExistException e){
+        } catch (EntityNotFoundException e){
             throw e;
         }
     }

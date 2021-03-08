@@ -2,13 +2,16 @@ package com.github.fredO1211.booking.service.impl;
 
 import com.github.fredO1211.booking.domain.Facility;
 import com.github.fredO1211.booking.repository.FacilityRepository;
-import com.github.fredO1211.booking.service.exceptions.ElementDoesNotExistException;
+import com.github.fredO1211.booking.service.exceptions.EntityNotFoundException;
 import com.github.fredO1211.booking.service.exceptions.UnavailableNameException;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -35,11 +38,24 @@ class FacilityServiceImplTest {
     }
 
     @Test
-    void shouldThrowElementDoesNotExistExceptionWhenRepositoryReturnNull(){
+    void shouldThrowElementDoesNotExistExceptionWhenRepositoryReturnNull() {
         // given
         when(repository.findById(anyLong())).thenReturn(Optional.empty());
         // when + then
-        assertThrows(ElementDoesNotExistException.class,
-                () -> service.update(1L, new Facility("name",211)));
+        assertThrows(EntityNotFoundException.class,
+                () -> service.update(1L, new Facility("name", 211)));
+    }
+
+    @Test
+    void shouldChangeFacilityNameAndBasicRentAmountWhenSourcePassValid() {
+        // given
+        Facility toUpdate = new Facility("name", 100);
+        Facility source = new Facility("rename", 200);
+        when(repository.isFacilityExists(anyString())).thenReturn(false);
+        // when
+        service.update(toUpdate, source);
+        // then
+        assertThat(toUpdate.getName().equals(source.getName())
+                && toUpdate.getBasicRentAmount().equals(source.getBasicRentAmount())).isTrue();
     }
 }

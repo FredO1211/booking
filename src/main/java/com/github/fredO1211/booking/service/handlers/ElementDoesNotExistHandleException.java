@@ -1,6 +1,6 @@
 package com.github.fredO1211.booking.service.handlers;
 
-import com.github.fredO1211.booking.service.exceptions.ElementDoesNotExistException;
+import com.github.fredO1211.booking.service.exceptions.EntityNotFoundException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,7 +12,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @ControllerAdvice
 public class ElementDoesNotExistHandleException extends ResponseEntityExceptionHandler {
 
-    @ExceptionHandler(ElementDoesNotExistException.class)
+    @ExceptionHandler(EntityNotFoundException.class)
     public ResponseEntity<Object> handleWebException(RuntimeException e, WebRequest webRequest) {
         return handleExceptionInternal(e, e.getMessage(), HttpHeaders.EMPTY, HttpStatus.NOT_FOUND, webRequest);
     }

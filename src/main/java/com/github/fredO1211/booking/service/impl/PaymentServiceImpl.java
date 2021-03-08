@@ -1,12 +1,10 @@
 package com.github.fredO1211.booking.service.impl;
 
-import com.github.fredO1211.booking.domain.Guest;
 import com.github.fredO1211.booking.domain.Payment;
-import com.github.fredO1211.booking.messageprovider.MessageProvider;
 import com.github.fredO1211.booking.repository.PaymentRepository;
 import com.github.fredO1211.booking.service.PaymentService;
 import com.github.fredO1211.booking.service.Validator;
-import com.github.fredO1211.booking.service.exceptions.ElementDoesNotExistException;
+import com.github.fredO1211.booking.service.exceptions.EntityNotFoundException;
 import com.github.fredO1211.booking.service.exceptions.IncorrectInputDataException;
 import com.github.fredO1211.booking.service.exceptions.UnavailableCodeException;
 import org.springframework.data.domain.Pageable;
@@ -55,7 +53,7 @@ public class PaymentServiceImpl implements PaymentService, Validator<Payment> {
     @Override
     public Payment update(Long id, Payment source) {
         Payment toUpdate = repository.findById(id)
-                .orElseThrow(ElementDoesNotExistException::new);
+                .orElseThrow(EntityNotFoundException::new);
         try {
             return update(toUpdate, source);
         } catch (Exception e){
@@ -71,7 +69,7 @@ public class PaymentServiceImpl implements PaymentService, Validator<Payment> {
     @Override
     public void togglePayment(Long id) {
         var payment = repository.findById(id)
-                .orElseThrow(ElementDoesNotExistException::new);
+                .orElseThrow(EntityNotFoundException::new);
         payment.setIfAdvancePaid(!payment.isAdvancePaid());
         repository.save(payment);
 

@@ -1,12 +1,10 @@
 package com.github.fredO1211.booking.controller;
 
 import com.github.fredO1211.booking.domain.Guest;
-import com.github.fredO1211.booking.domain.Payment;
 import com.github.fredO1211.booking.service.dto.GuestDTO;
-import com.github.fredO1211.booking.service.exceptions.ElementDoesNotExistException;
+import com.github.fredO1211.booking.service.exceptions.EntityNotFoundException;
 import com.github.fredO1211.booking.service.exceptions.IncorrectInputDataException;
 import com.github.fredO1211.booking.service.impl.GuestServiceImpl;
-import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
@@ -63,7 +61,7 @@ public class GuestController {
         try {
             service.update(id, toUpdate);
             return ResponseEntity.noContent().build();
-        } catch (ElementDoesNotExistException e) {
+        } catch (EntityNotFoundException e) {
             throw e;
         }catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body(e.getMessage());

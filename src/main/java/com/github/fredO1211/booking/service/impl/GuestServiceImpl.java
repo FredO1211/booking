@@ -1,11 +1,10 @@
 package com.github.fredO1211.booking.service.impl;
 
 import com.github.fredO1211.booking.domain.Guest;
-import com.github.fredO1211.booking.messageprovider.MessageProvider;
 import com.github.fredO1211.booking.repository.GuestRepository;
 import com.github.fredO1211.booking.service.GuestService;
 import com.github.fredO1211.booking.service.dto.GuestDTO;
-import com.github.fredO1211.booking.service.exceptions.ElementDoesNotExistException;
+import com.github.fredO1211.booking.service.exceptions.EntityNotFoundException;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -54,7 +53,7 @@ public class GuestServiceImpl implements GuestService {
     @Override
     public Guest update(Long id, Guest source) {
         Guest toUpdate = repository.findById(id).orElseThrow(() -> {
-            throw new ElementDoesNotExistException();
+            throw new EntityNotFoundException();
         });
         return update(toUpdate, source);
     }
