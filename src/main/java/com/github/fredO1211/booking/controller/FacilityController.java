@@ -1,6 +1,7 @@
 package com.github.fredO1211.booking.controller;
 
 import com.github.fredO1211.booking.domain.Facility;
+import com.github.fredO1211.booking.domain.Payment;
 import com.github.fredO1211.booking.service.FacilityService;
 import com.github.fredO1211.booking.service.exceptions.IncorrectInputDataException;
 import com.github.fredO1211.booking.service.exceptions.UnavailableNameException;
@@ -33,6 +34,12 @@ public class FacilityController {
     ResponseEntity<List<Facility>> readAllFacilities(@PathVariable int index) {
         PageRequest page = PageRequest.of(index, 12, Sort.by("name"));
         return ResponseEntity.ok(service.getAll(page));
+    }
+
+    @GetMapping("/id")
+    ResponseEntity<Facility> getPaymentById(@PathVariable Long id) {
+        return service.getById(id).map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping

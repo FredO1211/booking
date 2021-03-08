@@ -11,6 +11,7 @@ public class DateProvider{
             throw new IllegalArgumentException();
         }
     }
+
     public static List<LocalDate> getDatesBetweenOthers(LocalDate startDay, LocalDate endDay){
         validData(startDay,endDay);
         List<LocalDate> dates = startDay.datesUntil(endDay)

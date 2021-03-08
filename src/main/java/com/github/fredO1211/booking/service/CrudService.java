@@ -9,6 +9,6 @@ public interface CrudService<T, S> {
     T save(T t);
     List<T> getAll(Pageable pageable);
     Optional<T> getById(S id);
-    T update(T toUpdate, T source);
+    T update(S id, T source);
     void delete(T t);
 }

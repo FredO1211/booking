@@ -5,6 +5,7 @@ import com.github.fredO1211.booking.messageprovider.MessageProvider;
 import com.github.fredO1211.booking.repository.GuestRepository;
 import com.github.fredO1211.booking.service.GuestService;
 import com.github.fredO1211.booking.service.dto.GuestDTO;
+import com.github.fredO1211.booking.service.exceptions.ElementDoesNotExistException;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -42,7 +43,6 @@ public class GuestServiceImpl implements GuestService {
                 guest.getEmail());
     }
 
-    @Override
     public Guest update(Guest toUpdate, @Valid Guest source) {
         toUpdate.setName(source.getName());
         toUpdate.setEmail(source.getEmail());
@@ -54,7 +54,7 @@ public class GuestServiceImpl implements GuestService {
     @Override
     public Guest update(Long id, Guest source) {
         Guest toUpdate = repository.findById(id).orElseThrow(() -> {
-            throw new IllegalArgumentException(MessageProvider.ID_DOES_NOT_EXIST_MSG);
+            throw new ElementDoesNotExistException();
         });
         return update(toUpdate, source);
     }

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface BookingRepository extends JpaRepository<Booking, Integer> {
+public interface BookingRepository extends JpaRepository<Booking, Long> {
 
     @Query(nativeQuery = true, value = "SELECT * FROM BOOKINGS " +
             "where START_OF_BOOKING >=:startDate and END_OF_BOOKING<=:endDate")

@@ -5,6 +5,7 @@ import com.github.fredO1211.booking.messageprovider.MessageProvider;
 import com.github.fredO1211.booking.repository.FacilityRepository;
 import com.github.fredO1211.booking.service.FacilityService;
 import com.github.fredO1211.booking.service.Validator;
+import com.github.fredO1211.booking.service.exceptions.ElementDoesNotExistException;
 import com.github.fredO1211.booking.service.exceptions.UnavailableNameException;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -44,8 +45,6 @@ public class FacilityServiceImpl implements FacilityService, Validator<Facility>
         return repository.findById(id);
     }
 
-
-    @Override
     public Facility update(Facility toUpdate, @Valid Facility source) {
         if(!source.getName().equals(toUpdate.getName())){
             valid(source);
@@ -58,7 +57,7 @@ public class FacilityServiceImpl implements FacilityService, Validator<Facility>
     @Override
     public Facility update(Long id, Facility source) {
         Facility toUpdate = repository.findById(id).orElseThrow(()->{
-            throw new IllegalArgumentException(MessageProvider.ID_DOES_NOT_EXIST_MSG);
+            throw new ElementDoesNotExistException();
         });
         return update(toUpdate, source);
     }

@@ -5,7 +5,9 @@ import com.github.fredO1211.booking.messageprovider.MessageProvider;
 import org.springframework.beans.factory.annotation.Value;
 
 import javax.persistence.*;
+import javax.validation.constraints.Future;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.PastOrPresent;
 import javax.validation.constraints.PositiveOrZero;
 import java.time.LocalDate;
 
@@ -14,7 +16,7 @@ import java.time.LocalDate;
 public class Payment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
     @NotBlank(message = MessageProvider.PAYMENT_EMPTY_CODE_MSG)
     private String code;
     @PositiveOrZero(message = MessageProvider.PAYMENT_NEGATIVE_NIGHT_COST_MSG)
@@ -25,6 +27,7 @@ public class Payment {
     private int advanceSize;
     @Value("false")
     private boolean isAdvancePaid;
+    @Future(message = MessageProvider.PAYMENT_DEADLINE_IN_PAST_MSG)
     private LocalDate deadlineForPayment;
     @JsonIgnore
     @OneToOne(cascade = CascadeType.ALL)
@@ -45,11 +48,11 @@ public class Payment {
         this.deadlineForPayment = deadlineForPayment;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    void setId(int id) {
+    void setId(Long id) {
         this.id = id;
     }
 
@@ -57,7 +60,7 @@ public class Payment {
         return code;
     }
 
-    void setCode(String code) {
+    public void setCode(String code) {
         this.code = code;
     }
 
@@ -65,7 +68,7 @@ public class Payment {
         return costPerNight;
     }
 
-    void setCostPerNight(int costPerNight) {
+    public void setCostPerNight(int costPerNight) {
         this.costPerNight = costPerNight;
     }
 
@@ -73,7 +76,7 @@ public class Payment {
         return discount;
     }
 
-    void setDiscount(int discount) {
+    public void setDiscount(int discount) {
         this.discount = discount;
     }
 
@@ -81,7 +84,7 @@ public class Payment {
         return advanceSize;
     }
 
-    void setAdvanceSize(int advanceSize) {
+    public void setAdvanceSize(int advanceSize) {
         this.advanceSize = advanceSize;
     }
 
@@ -89,7 +92,7 @@ public class Payment {
         return isAdvancePaid;
     }
 
-    public void setAdvancePaid(boolean advancePaid) {
+    public void setIfAdvancePaid(boolean advancePaid) {
         isAdvancePaid = advancePaid;
     }
 
@@ -97,7 +100,7 @@ public class Payment {
         return deadlineForPayment;
     }
 
-    void setDeadlineForPayment(LocalDate deadlineForPayment) {
+    public void setDeadlineForPayment(LocalDate deadlineForPayment) {
         this.deadlineForPayment = deadlineForPayment;
     }
 

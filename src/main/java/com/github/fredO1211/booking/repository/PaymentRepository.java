@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
-public interface PaymentRepository extends JpaRepository<Payment, Integer> {
+public interface PaymentRepository extends JpaRepository<Payment, Long> {
     @Query(nativeQuery = true, value = "SELECT count(*)<1 FROM PAYMENTS WHERE CODE=:code")
     boolean isCodeAvailable(String code);
 

@@ -32,8 +32,12 @@ public class BookingServiceImpl implements BookingService {
         return Optional.empty();
     }
 
-    @Override
     public Booking update(Booking toUpdate, Booking source) {
+        return null;
+    }
+
+    @Override
+    public Booking update(Long id, Booking source) {
         return null;
     }
 
