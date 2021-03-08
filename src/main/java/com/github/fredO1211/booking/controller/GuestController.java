@@ -69,10 +69,4 @@ public class GuestController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
-
-    @DeleteMapping("/{id}")
-    ResponseEntity<?> deleteFacility(@PathVariable Long id) {
-        service.delete(id);
-        return ResponseEntity.noContent().build();
-    }
 }

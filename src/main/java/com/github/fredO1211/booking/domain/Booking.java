@@ -1,6 +1,9 @@
 package com.github.fredO1211.booking.domain;
 
+import com.github.fredO1211.booking.messageprovider.MessageProvider;
+
 import javax.persistence.*;
+import javax.validation.constraints.Future;
 import java.time.LocalDate;
 
 @Entity
@@ -12,7 +15,9 @@ public class Booking {
     @ManyToOne
     @JoinColumn(name = "guest_id")
     private Guest guest;
+    @Future(message = MessageProvider.START_IN_PAST_MSG)
     private LocalDate startOfBooking;
+    @Future(message = MessageProvider.END_IN_PAST_MSG)
     private LocalDate endOfBooking;
     private String description;
     private int countOfGuests;

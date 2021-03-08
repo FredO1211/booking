@@ -3,6 +3,7 @@ package com.github.fredO1211.booking.messageprovider;
 public final class MessageProvider {
     //General
     public static final String START_IN_PAST_MSG = "Start of booking cannot be in the past";
+    public static final String END_IN_PAST_MSG = "End of booking cannot be in the past";
     public static final String START_BEFORE_END_MSG = "Start of booking cannot be before end";
     public static final String EMPTY_NAME_MSG = "Name cannot be empty";
     public static final String ID_DOES_NOT_EXIST_MSG = "Current id doesn't exists";
