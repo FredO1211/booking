@@ -15,7 +15,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping("/payment")
+@RequestMapping("/payments")
 public class PaymentController {
     final PaymentServiceImpl service;
 
@@ -24,25 +24,25 @@ public class PaymentController {
     }
 
     @GetMapping()
-    ResponseEntity<List<Payment>> readAllGuests() {
+    ResponseEntity<List<Payment>> readAllPayments() {
         PageRequest page = PageRequest.of(0, 12, Sort.by("code"));
         return ResponseEntity.ok(service.getAll(page));
     }
 
     @GetMapping("/page/{index}")
-    ResponseEntity<List<Payment>> readAllGuests(@PathVariable int index) {
-        PageRequest page = PageRequest.of(index, 12, Sort.by("code"));
+    ResponseEntity<List<Payment>> readAllPayments(@PathVariable int index) {
+        PageRequest page = PageRequest.of(index-1, 12, Sort.by("code"));
         return ResponseEntity.ok(service.getAll(page));
     }
 
-    @GetMapping("/id")
+    @GetMapping("/{id}")
     ResponseEntity<Payment> getPaymentById(@PathVariable Long id) {
         return service.getById(id).map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping
-    ResponseEntity<?> createFacility(@RequestBody Payment toCreate) {
+    ResponseEntity<?> createPayment(@RequestBody Payment toCreate) {
         try {
             var result = service.save(toCreate);
             return ResponseEntity.created(URI.create("/" + result.getId())).body(result);
@@ -54,11 +54,11 @@ public class PaymentController {
     }
 
     @PutMapping("/{id}")
-    ResponseEntity<?> updateFacility(@PathVariable Long id, @RequestBody Payment toUpdate) {
+    ResponseEntity<?> updatePayment(@PathVariable Long id, @RequestBody Payment toUpdate) {
         try {
             service.update(id, toUpdate);
             return ResponseEntity.noContent().build();
-        } catch (EntityNotFoundException e){
+        } catch (EntityNotFoundException | UnavailableCodeException e){
             throw e;
         } catch (Exception e) {
             throw new IncorrectInputDataException(e);
@@ -69,6 +69,7 @@ public class PaymentController {
     @PatchMapping("/{id}")
     ResponseEntity<?> togglePayment(@PathVariable Long id) {
         try {
+            service.togglePayment(id);
             return ResponseEntity.noContent().build();
         } catch (EntityNotFoundException e){
             throw e;

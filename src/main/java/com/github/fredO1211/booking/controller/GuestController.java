@@ -31,12 +31,12 @@ public class GuestController {
 
     @GetMapping("/page/{index}")
     ResponseEntity<List<Guest>> readAllGuests(@PathVariable int index) {
-        PageRequest page = PageRequest.of(index, 12, Sort.by("name"));
+        PageRequest page = PageRequest.of(index-1, 12, Sort.by("name"));
         return ResponseEntity.ok(service.getAll(page));
     }
 
-    @GetMapping("/id")
-    ResponseEntity<Guest> getPaymentById(@PathVariable Long id) {
+    @GetMapping("/{id}")
+    ResponseEntity<Guest> getGuestId(@PathVariable Long id) {
         return service.getById(id).map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
@@ -47,7 +47,7 @@ public class GuestController {
     }
 
     @PostMapping
-    ResponseEntity<?> createFacility(@RequestBody Guest toCreate) {
+    ResponseEntity<?> createGuest(@RequestBody Guest toCreate) {
         try {
             var result = service.save(toCreate);
             return ResponseEntity.created(URI.create("/" + result.getId())).body(result);
@@ -57,14 +57,14 @@ public class GuestController {
     }
 
     @PutMapping("/{id}")
-    ResponseEntity<?> updateFacility(@PathVariable Long id, @RequestBody Guest toUpdate) {
+    ResponseEntity<?> updateGuest(@PathVariable Long id, @RequestBody Guest toUpdate) {
         try {
             service.update(id, toUpdate);
             return ResponseEntity.noContent().build();
         } catch (EntityNotFoundException e) {
             throw e;
-        }catch (IllegalArgumentException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
+        }catch (Exception e) {
+            throw new IncorrectInputDataException(e);
         }
     }
 }

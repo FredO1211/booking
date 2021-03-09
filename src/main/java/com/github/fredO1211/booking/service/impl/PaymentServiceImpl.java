@@ -7,6 +7,7 @@ import com.github.fredO1211.booking.service.Validator;
 import com.github.fredO1211.booking.service.exceptions.EntityNotFoundException;
 import com.github.fredO1211.booking.service.exceptions.IncorrectInputDataException;
 import com.github.fredO1211.booking.service.exceptions.UnavailableCodeException;
+import com.github.fredO1211.booking.service.exceptions.UnavailableNameException;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -77,7 +78,7 @@ public class PaymentServiceImpl implements PaymentService, Validator<Payment> {
     @Override
     public Payment valid(Payment payment) {
         if(!repository.isCodeAvailable(payment.getCode())){
-            throw new UnavailableCodeException();
+            throw new UnavailableNameException();
         }
         return payment;
     }

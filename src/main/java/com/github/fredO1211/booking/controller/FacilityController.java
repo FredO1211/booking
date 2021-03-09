@@ -32,12 +32,12 @@ public class FacilityController {
 
     @GetMapping("/page/{index}")
     ResponseEntity<List<Facility>> readAllFacilities(@PathVariable int index) {
-        PageRequest page = PageRequest.of(index, 12, Sort.by("name"));
+        PageRequest page = PageRequest.of(index-1, 12, Sort.by("name"));
         return ResponseEntity.ok(service.getAll(page));
     }
 
-    @GetMapping("/id")
-    ResponseEntity<Facility> getPaymentById(@PathVariable Long id) {
+    @GetMapping("/{id}")
+    ResponseEntity<Facility> getFacilityById(@PathVariable Long id) {
         return service.getById(id).map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
