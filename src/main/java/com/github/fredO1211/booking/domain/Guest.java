@@ -25,7 +25,7 @@ public class Guest {
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "guest")
     private Set<Booking> bookings;
 
-    public Guest(Long id, @NotBlank String name, @Email(message = MessageProvider.INVALID_EMAIL_FORMAT_MSG) String email, String phoneNumber, String additionalInformation) {
+    public Guest(@NotBlank String name, @Email(message = MessageProvider.INVALID_EMAIL_FORMAT_MSG) String email, String phoneNumber, String additionalInformation) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -33,7 +33,7 @@ public class Guest {
         this.additionalInformation = additionalInformation;
     }
 
-    public Guest() {
+    Guest() {
     }
 
     public Long getId() {
