@@ -9,15 +9,14 @@ class PaymentServiceImplAssert {
     PaymentServiceImplAssert() {
     }
 
-    static PaymentServiceImplAssert then(){
+    static PaymentServiceImplAssert then() {
         return new PaymentServiceImplAssert();
     }
 
-    PaymentServiceImplAssert paymentObjectHasChangedWholeData(Payment actual, Payment expected){
-
+    PaymentServiceImplAssert paymentObjectHasChangedWholeData(Payment actual, Payment expected) {
         assertThat(actual.getCode().equals(expected.getCode()) ||
                 actual.getCostPerNight() == expected.getCostPerNight() ||
-                actual.getDiscount()==expected.getDiscount() ||
+                actual.getDiscount() == expected.getDiscount() ||
                 actual.getAdvanceSize() == expected.getAdvanceSize() ||
                 actual.getDeadlineForPayment().isEqual(expected.getDeadlineForPayment()))
                 .isTrue();
