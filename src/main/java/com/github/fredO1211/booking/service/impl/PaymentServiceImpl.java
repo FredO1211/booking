@@ -78,7 +78,7 @@ public class PaymentServiceImpl implements PaymentService, Validator<Payment> {
     @Override
     public Payment valid(Payment payment) {
         if(!repository.isCodeAvailable(payment.getCode())){
-            throw new UnavailableNameException();
+            throw new UnavailableCodeException();
         }
         return payment;
     }

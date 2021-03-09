@@ -40,18 +40,18 @@ public class PaymentController {
         return service.getById(id).map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
-
-    @PostMapping
-    ResponseEntity<?> createPayment(@RequestBody Payment toCreate) {
-        try {
-            var result = service.save(toCreate);
-            return ResponseEntity.created(URI.create("/" + result.getId())).body(result);
-        } catch (UnavailableCodeException e) {
-            throw e;
-        } catch (Exception e) {
-            throw new IncorrectInputDataException(e);
-        }
-    }
+//
+//    @PostMapping
+//    ResponseEntity<?> createPayment(@RequestBody Payment toCreate) {
+//        try {
+//            var result = service.save(toCreate);
+//            return ResponseEntity.created(URI.create("/" + result.getId())).body(result);
+//        } catch (UnavailableCodeException e) {
+//            throw e;
+//        } catch (Exception e) {
+//            throw new IncorrectInputDataException(e);
+//        }
+//    }
 
     @PutMapping("/{id}")
     ResponseEntity<?> updatePayment(@PathVariable Long id, @RequestBody Payment toUpdate) {

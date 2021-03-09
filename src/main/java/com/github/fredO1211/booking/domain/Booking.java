@@ -1,6 +1,7 @@
 package com.github.fredO1211.booking.domain;
 
 import com.github.fredO1211.booking.messageprovider.MessageProvider;
+import com.github.fredO1211.booking.service.dto.BookingDTO;
 
 import javax.persistence.*;
 import javax.validation.constraints.Future;
@@ -24,19 +25,20 @@ public class Booking {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "payment_id")
     private Payment payment;
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "facility_id")
     private Facility facility;
 
     public Booking() {
     }
 
-    public Booking(Guest guest, LocalDate startOfBooking, LocalDate endOfBooking, String description, Payment payment) {
+    public Booking(Guest guest, LocalDate startOfBooking, LocalDate endOfBooking, String description, Payment payment, Facility facility) {
         this.guest = guest;
         this.startOfBooking = startOfBooking;
         this.endOfBooking = endOfBooking;
         this.description = description;
         this.payment = payment;
+        this.facility = facility;
     }
 
     public int getId() {

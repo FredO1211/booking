@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Value;
 import javax.persistence.*;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.PastOrPresent;
 import javax.validation.constraints.PositiveOrZero;
 import java.time.LocalDate;
 
@@ -29,7 +30,7 @@ public class Payment {
     @Future(message = MessageProvider.PAYMENT_DEADLINE_IN_PAST_MSG)
     private LocalDate deadlineForPayment;
     @JsonIgnore
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     private Booking booking;
 
     Payment() {

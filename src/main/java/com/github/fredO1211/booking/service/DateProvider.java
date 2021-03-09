@@ -14,11 +14,25 @@ public class DateProvider{
 
     public static List<LocalDate> getDatesBetweenOthers(LocalDate startDay, LocalDate endDay){
         validData(startDay,endDay);
-        List<LocalDate> dates = startDay.datesUntil(endDay)
+
+        return startDay.datesUntil(endDay)
                 .filter(date->!date.equals(startDay))
                 .collect(Collectors.toList());
-
-        dates.forEach(d-> System.out.println(dates));
-        return dates;
     }
+    public static List<LocalDate> getOtherDates(LocalDate currentDateStartDay,LocalDate currentDateEndDay,LocalDate newDateStartDay,LocalDate newDateEndDay){
+        List<LocalDate> currentDates = getDatesListIncludingTheExtremes(currentDateStartDay,currentDateEndDay);
+        List<LocalDate> newDates = getDatesListIncludingTheExtremes(newDateStartDay,newDateEndDay);
+        return newDates.stream()
+                .filter(date->!currentDates.contains(date))
+                .collect(Collectors.toList());
+
+    }
+
+    public static List<LocalDate> getDatesListIncludingTheExtremes(LocalDate startDay, LocalDate endDay){
+        validData(startDay,endDay);
+        List<LocalDate> currentDates = startDay.datesUntil(endDay).collect(Collectors.toList());
+        currentDates.add(endDay);
+        return currentDates;
+    }
+
 }

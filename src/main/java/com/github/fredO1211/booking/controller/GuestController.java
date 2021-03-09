@@ -46,15 +46,15 @@ public class GuestController {
         return ResponseEntity.ok(service.getByProps(guest));
     }
 
-    @PostMapping
-    ResponseEntity<?> createGuest(@RequestBody Guest toCreate) {
-        try {
-            var result = service.save(toCreate);
-            return ResponseEntity.created(URI.create("/" + result.getId())).body(result);
-        } catch (Exception e) {
-            throw new IncorrectInputDataException(e);
-        }
-    }
+//    @PostMapping
+//    ResponseEntity<?> createGuest(@RequestBody Guest toCreate) {
+//        try {
+//            var result = service.save(toCreate);
+//            return ResponseEntity.created(URI.create("/" + result.getId())).body(result);
+//        } catch (Exception e) {
+//            throw new IncorrectInputDataException(e);
+//        }
+//    }
 
     @PutMapping("/{id}")
     ResponseEntity<?> updateGuest(@PathVariable Long id, @RequestBody Guest toUpdate) {
