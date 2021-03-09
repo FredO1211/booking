@@ -72,7 +72,6 @@ public class PaymentServiceImpl implements PaymentService, Validator<Payment> {
                 .orElseThrow(EntityNotFoundException::new);
         payment.setIfAdvancePaid(!payment.isAdvancePaid());
         repository.save(payment);
-
     }
 
     @Override
