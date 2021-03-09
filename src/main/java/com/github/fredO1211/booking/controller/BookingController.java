@@ -27,25 +27,25 @@ public class BookingController {
     }
 
     @GetMapping()
-    ResponseEntity<List<Booking>> readAllFacilities() {
+    ResponseEntity<List<Booking>> readAllBookings() {
         PageRequest page = PageRequest.of(0, 12, Sort.by("name"));
         return ResponseEntity.ok(service.getAll(page));
     }
 
     @GetMapping("/page/{index}")
-    ResponseEntity<List<Booking>> readAllFacilities(@PathVariable int index) {
+    ResponseEntity<List<Booking>> readAllBookings(@PathVariable int index) {
         PageRequest page = PageRequest.of(index-1, 12, Sort.by("name"));
         return ResponseEntity.ok(service.getAll(page));
     }
 
     @GetMapping("/{id}")
-    ResponseEntity<Booking> getFacilityById(@PathVariable Long id) {
+    ResponseEntity<Booking> getBookingById(@PathVariable Long id) {
         return service.getById(id).map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping
-    ResponseEntity<?> createFacility(@RequestBody Booking toCreate) {
+    ResponseEntity<?> createBooking(@RequestBody Booking toCreate) {
         try {
             var result = service.save(toCreate);
             return ResponseEntity.created(URI.create("/" + result.getId())).body(result);
@@ -55,7 +55,7 @@ public class BookingController {
     }
 
     @PutMapping("/{id}")
-    ResponseEntity<?> updateFacility(@PathVariable Long id, @RequestBody Booking toUpdate) {
+    ResponseEntity<?> updateBooking(@PathVariable Long id, @RequestBody Booking toUpdate) {
         try {
             service.update(id, toUpdate);
             return ResponseEntity.noContent().build();
@@ -67,7 +67,7 @@ public class BookingController {
     }
 
     @DeleteMapping("/{id}")
-    ResponseEntity<?> deleteFacility(@PathVariable Long id) {
+    ResponseEntity<?> deleteBooking(@PathVariable Long id) {
         service.delete(id);
         return ResponseEntity.noContent().build();
     }
