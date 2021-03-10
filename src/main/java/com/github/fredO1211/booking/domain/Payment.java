@@ -31,6 +31,7 @@ public class Payment {
     private LocalDate deadlineForPayment;
     @JsonIgnore
     @OneToOne
+    @PrimaryKeyJoinColumn
     private Booking booking;
 
     Payment() {

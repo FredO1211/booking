@@ -10,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.validation.Valid;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,11 +30,11 @@ public class BookingServiceImpl implements BookingService, Validator<Booking> {
 
     @Override
     public Booking save(@Valid Booking booking) {
-        if (booking.getGuest().getId() == null) {
-            guestService.save(booking.getGuest());
-        }
         paymentService.save(booking.getPayment());
         try {
+            if (booking.getGuest().getId() == null) {
+                guestService.save(booking.getGuest());
+            }
             return repository.save(valid(booking));
         } catch (Exception e) {
             paymentService.delete(booking.getPayment());
@@ -64,6 +65,7 @@ public class BookingServiceImpl implements BookingService, Validator<Booking> {
     }
 
     public Booking update(Booking toUpdate, @Valid BookingDTO source) {
+        valid(toUpdate, source);
         toUpdate.setCountOfGuests(source.getCountOfGuests());
         toUpdate.setStartOfBooking(source.getStartOfBooking());
         toUpdate.setEndOfBooking(source.getEndOfBooking());
@@ -97,5 +99,20 @@ public class BookingServiceImpl implements BookingService, Validator<Booking> {
             throw new UnavailableDateException();
         }
         return booking;
+    }
+
+    public BookingDTO valid(Booking currentBooking,BookingDTO source) {
+        List<LocalDate> datesToCheck = DateProvider.getOtherDates(
+                currentBooking.getStartOfBooking(),
+                currentBooking.getEndOfBooking(),
+                source.getStartOfBooking(),
+                source.getEndOfBooking());
+
+        datesToCheck.forEach(d->{
+            if(repository.isAvailable(d.toString(),currentBooking.getId())){
+                throw new UnavailableDateException();
+            }
+        });
+        return source;
     }
 }

@@ -20,6 +20,11 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
             "and facility_id=:facilityId")
     boolean isAvailable(String firstDate, String lastDate, Long facilityId);
 
+    @Query(nativeQuery = true, value = "SELECT count(*)<1 FROM BOOKINGS " +
+            "WHERE (START_OF_BOOKING >=:date and END_OF_BOOKING<:date) " +
+            "and facility_id=:facilityId")
+    boolean isAvailable(String date,  Long facilityId);
+
     @Query(nativeQuery = true, value = "SELECT * FROM BOOKINGS " +
             "WHERE ((START_OF_BOOKING >=:firstDate and START_OF_BOOKING<=:lastDate) " +
             "or (END_OF_BOOKING >=:firstDate and END_OF_BOOKING <=:lastDate)) " +
