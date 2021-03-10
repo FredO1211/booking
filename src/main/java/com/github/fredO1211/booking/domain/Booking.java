@@ -105,8 +105,7 @@ public class Booking {
         this.countOfGuests = countOfGuests;
     }
 
-    public int getStayCost() {
-        int bookingLength = (int) startOfBooking.datesUntil(endOfBooking).count();
-        return bookingLength * payment.getCostPerNight() - payment.getDiscount();
+    public int getStayLength() {
+        return (int) startOfBooking.datesUntil(endOfBooking).count();
     }
 }

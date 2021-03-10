@@ -1,6 +1,7 @@
 package com.github.fredO1211.booking.service.impl;
 
 import com.github.fredO1211.booking.domain.Booking;
+import com.github.fredO1211.booking.domain.Payment;
 import com.github.fredO1211.booking.repository.BookingRepository;
 import com.github.fredO1211.booking.service.*;
 import com.github.fredO1211.booking.service.dto.BookingDTO;
@@ -30,11 +31,15 @@ public class BookingServiceImpl implements BookingService, Validator<Booking> {
 
     @Override
     public Booking save(@Valid Booking booking) {
-        paymentService.save(booking.getPayment());
+        Payment paymentToSave = booking.getPayment();
+        paymentService.save(paymentToSave);
         try {
             if (booking.getGuest().getId() == null) {
                 guestService.save(booking.getGuest());
             }
+
+            BookingValidator.validNewBooking(booking,paymentToSave);
+
             return repository.save(valid(booking));
         } catch (Exception e) {
             paymentService.delete(booking.getPayment());

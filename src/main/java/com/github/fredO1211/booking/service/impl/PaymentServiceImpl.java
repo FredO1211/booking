@@ -1,13 +1,13 @@
 package com.github.fredO1211.booking.service.impl;
 
 import com.github.fredO1211.booking.domain.Payment;
+import com.github.fredO1211.booking.messageprovider.MessageProvider;
 import com.github.fredO1211.booking.repository.PaymentRepository;
 import com.github.fredO1211.booking.service.PaymentService;
 import com.github.fredO1211.booking.service.Validator;
 import com.github.fredO1211.booking.service.exceptions.EntityNotFoundException;
 import com.github.fredO1211.booking.service.exceptions.IncorrectInputDataException;
 import com.github.fredO1211.booking.service.exceptions.UnavailableCodeException;
-import com.github.fredO1211.booking.service.exceptions.UnavailableNameException;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -39,10 +39,11 @@ public class PaymentServiceImpl implements PaymentService, Validator<Payment> {
     }
 
     public Payment update(Payment toUpdate, @Valid Payment source) {
-        if(!source.getCode().equals(toUpdate.getCode())){
-            valid(source);
+        if (!source.getCode().equals(toUpdate.getCode())) {
+            validCode(source);
             toUpdate.setCode(source.getCode());
         }
+        valid(source);
         toUpdate.setAdvanceSize(source.getAdvanceSize());
         toUpdate.setCostPerNight(source.getCostPerNight());
         toUpdate.setDeadlineForPayment(toUpdate.getDeadlineForPayment());
@@ -57,7 +58,7 @@ public class PaymentServiceImpl implements PaymentService, Validator<Payment> {
                 .orElseThrow(EntityNotFoundException::new);
         try {
             return update(toUpdate, source);
-        } catch (Exception e){
+        } catch (Exception e) {
             throw new IncorrectInputDataException(e);
         }
     }
@@ -75,11 +76,16 @@ public class PaymentServiceImpl implements PaymentService, Validator<Payment> {
         repository.save(payment);
     }
 
-    @Override
-    public Payment valid(Payment payment) {
-        if(!repository.isCodeAvailable(payment.getCode())){
+    private Payment validCode(Payment payment) {
+        if (!repository.isCodeAvailable(payment.getCode())) {
             throw new UnavailableCodeException();
         }
+        return payment;
+    }
+
+    @Override
+    public Payment valid(Payment payment) {
+        validCode(payment);
         return payment;
     }
 }

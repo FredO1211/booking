@@ -7,7 +7,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 public class SimplifiedBookingDTO {
-    int bookingId;
+    Long bookingId;
     LocalDate startingDate;
     LocalDate endingDate;
     List<LocalDate> otherDatesTaken;
@@ -22,13 +22,13 @@ public class SimplifiedBookingDTO {
                 booking.getEndOfBooking());
     }
 
-    private SimplifiedBookingDTO(int bookingId, LocalDate startingDate, LocalDate endingDate) {
+    private SimplifiedBookingDTO(Long bookingId, LocalDate startingDate, LocalDate endingDate) {
         this.bookingId = bookingId;
         this.startingDate = startingDate;
         this.endingDate = endingDate;
     }
 
-    public int getBookingId() {
+    public Long getBookingId() {
         return bookingId;
     }
 
