@@ -28,13 +28,13 @@ public class BookingController {
 
     @GetMapping()
     ResponseEntity<List<Booking>> readAllBookings() {
-        PageRequest page = PageRequest.of(0, 12, Sort.by("name"));
+        PageRequest page = PageRequest.of(0, 12);
         return ResponseEntity.ok(service.getAll(page));
     }
 
     @GetMapping("/page/{index}")
     ResponseEntity<List<Booking>> readAllBookings(@PathVariable int index) {
-        PageRequest page = PageRequest.of(index-1, 12, Sort.by("name"));
+        PageRequest page = PageRequest.of(index-1, 12);
         return ResponseEntity.ok(service.getAll(page));
     }
 

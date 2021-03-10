@@ -1,7 +1,6 @@
 package com.github.fredO1211.booking.service.impl;
 
 import com.github.fredO1211.booking.domain.Payment;
-import com.github.fredO1211.booking.messageprovider.MessageProvider;
 import com.github.fredO1211.booking.repository.PaymentRepository;
 import com.github.fredO1211.booking.service.PaymentService;
 import com.github.fredO1211.booking.service.Validator;
@@ -87,5 +86,9 @@ public class PaymentServiceImpl implements PaymentService, Validator<Payment> {
     public Payment valid(Payment payment) {
         validCode(payment);
         return payment;
+    }
+
+    public List<Payment> getUnpaid(Pageable pageable) {
+        return repository.unpaidList(pageable).getContent();
     }
 }

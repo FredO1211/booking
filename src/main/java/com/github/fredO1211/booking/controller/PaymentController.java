@@ -25,13 +25,13 @@ public class PaymentController {
 
     @GetMapping()
     ResponseEntity<List<Payment>> readAllPayments() {
-        PageRequest page = PageRequest.of(0, 12, Sort.by("code"));
+        PageRequest page = PageRequest.of(0, 12);
         return ResponseEntity.ok(service.getAll(page));
     }
 
     @GetMapping("/page/{index}")
     ResponseEntity<List<Payment>> readAllPayments(@PathVariable int index) {
-        PageRequest page = PageRequest.of(index-1, 12, Sort.by("code"));
+        PageRequest page = PageRequest.of(index-1, 12);
         return ResponseEntity.ok(service.getAll(page));
     }
 
@@ -40,6 +40,19 @@ public class PaymentController {
         return service.getById(id).map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
+
+    @GetMapping("/unpaid")
+    ResponseEntity<List<Payment>> getUnpaid(){
+        PageRequest page = PageRequest.of(0, 12);
+        return ResponseEntity.ok(service.getUnpaid(page));
+    }
+
+    @GetMapping("/unpaid/page/{index}")
+    ResponseEntity<List<Payment>> getUnpaid(@PathVariable int index){
+        PageRequest page = PageRequest.of(index-1, 12);
+        return ResponseEntity.ok(service.getUnpaid(page));
+    }
+
 
     @PutMapping("/{id}")
     ResponseEntity<?> updatePayment(@PathVariable Long id, @RequestBody Payment toUpdate) {
