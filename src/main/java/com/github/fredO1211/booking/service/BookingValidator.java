@@ -1,4 +1,4 @@
-package com.github.fredO1211.booking.service.impl;
+package com.github.fredO1211.booking.service;
 
 import com.github.fredO1211.booking.domain.Booking;
 import com.github.fredO1211.booking.domain.Payment;
