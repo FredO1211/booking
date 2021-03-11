@@ -64,7 +64,6 @@ public class PaymentController {
         } catch (Exception e) {
             throw new IncorrectInputDataException(e);
         }
-
     }
 
     @PatchMapping("/{id}")
