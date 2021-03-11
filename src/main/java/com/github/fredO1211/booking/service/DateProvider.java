@@ -1,6 +1,7 @@
 package com.github.fredO1211.booking.service;
 
 import java.time.LocalDate;
+import java.time.YearMonth;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -34,5 +35,4 @@ public class DateProvider{
         currentDates.add(endDay);
         return currentDates;
     }
-
 }

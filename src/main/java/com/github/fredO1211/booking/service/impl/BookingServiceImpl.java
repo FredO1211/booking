@@ -5,6 +5,7 @@ import com.github.fredO1211.booking.domain.Payment;
 import com.github.fredO1211.booking.repository.BookingRepository;
 import com.github.fredO1211.booking.service.*;
 import com.github.fredO1211.booking.service.dto.BookingDTO;
+import com.github.fredO1211.booking.service.dto.SimplifiedBookingDTO;
 import com.github.fredO1211.booking.service.exceptions.EntityNotFoundException;
 import com.github.fredO1211.booking.service.exceptions.UnavailableDateException;
 import org.springframework.data.domain.Pageable;
@@ -12,8 +13,10 @@ import org.springframework.stereotype.Service;
 
 import javax.validation.Valid;
 import java.time.LocalDate;
+import java.time.YearMonth;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class BookingServiceImpl implements BookingService, Validator<Booking> {
@@ -55,6 +58,18 @@ public class BookingServiceImpl implements BookingService, Validator<Booking> {
     @Override
     public Optional<Booking> getById(Long id) {
         return repository.findById(id);
+    }
+
+    @Override
+    public List<SimplifiedBookingDTO> getSimplifiedBookingDTOList(YearMonth month, Long facilityId){
+        LocalDate from = LocalDate.of(month.getYear(),month.getMonth(),1);
+        LocalDate to = LocalDate.of(month.getYear(),month.getMonth(),month.lengthOfMonth());
+
+        List<Booking> bookingList = repository.getBookingsBetweenDates(from.toString(),to.toString(),facilityId);
+
+        return bookingList.stream()
+                .map(SimplifiedBookingDTO::new)
+                .collect(Collectors.toList());
     }
 
     @Override
