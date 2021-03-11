@@ -2,27 +2,34 @@ package com.github.fredO1211.booking.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.github.fredO1211.booking.messageprovider.MessageProvider;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import java.util.Objects;
 import java.util.Set;
 
+@NoArgsConstructor
+@Setter
+@Getter
 @Entity
+@EqualsAndHashCode
 @Table(name = "guests")
 public class Guest {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Setter(value = AccessLevel.PRIVATE)
     private Long id;
     @NotBlank
     private String name;
     @Email(message = MessageProvider.INVALID_EMAIL_FORMAT_MSG)
     private String email;
     private String phoneNumber;
+    @EqualsAndHashCode.Exclude
     private String additionalInformation;
     @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "guest")
+    @EqualsAndHashCode.Exclude
     private Set<Booking> bookings;
 
     public Guest(@NotBlank String name, @Email(message = MessageProvider.INVALID_EMAIL_FORMAT_MSG) String email, String phoneNumber, String additionalInformation) {
@@ -31,72 +38,5 @@ public class Guest {
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.additionalInformation = additionalInformation;
-    }
-
-    Guest() {
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public String getAdditionalInformation() {
-        return additionalInformation;
-    }
-
-    public void setAdditionalInformation(String additionalInformation) {
-        this.additionalInformation = additionalInformation;
-    }
-
-    public Set<Booking> getBookings() {
-        return bookings;
-    }
-
-    void setBookings(Set<Booking> bookings) {
-        this.bookings = bookings;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Guest guest = (Guest) o;
-        return Objects.equals(id, guest.id) &&
-                Objects.equals(name, guest.name) &&
-                Objects.equals(email, guest.email) &&
-                Objects.equals(phoneNumber, guest.phoneNumber);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, name, email, phoneNumber);
     }
 }

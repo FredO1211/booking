@@ -2,10 +2,12 @@ package com.github.fredO1211.booking.service.dto;
 
 import com.github.fredO1211.booking.domain.Booking;
 import com.github.fredO1211.booking.service.DateProvider;
+import lombok.Getter;
 
 import java.time.LocalDate;
 import java.util.List;
 
+@Getter
 public class SimplifiedBookingDTO {
     Long bookingId;
     LocalDate startingDate;
@@ -26,21 +28,5 @@ public class SimplifiedBookingDTO {
         this.bookingId = bookingId;
         this.startingDate = startingDate;
         this.endingDate = endingDate;
-    }
-
-    public Long getBookingId() {
-        return bookingId;
-    }
-
-    public LocalDate getStartingDate() {
-        return startingDate;
-    }
-
-    public LocalDate getEndingDate() {
-        return endingDate;
-    }
-
-    public List<LocalDate> getOtherDatesTaken() {
-        return otherDatesTaken;
     }
 }

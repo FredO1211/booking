@@ -71,7 +71,7 @@ public class PaymentServiceImpl implements PaymentService, Validator<Payment> {
     public void togglePayment(Long id) {
         var payment = repository.findById(id)
                 .orElseThrow(EntityNotFoundException::new);
-        payment.setIfAdvancePaid(!payment.isAdvancePaid());
+        payment.setAdvancePaid(!payment.isAdvancePaid());
         repository.save(payment);
     }
 

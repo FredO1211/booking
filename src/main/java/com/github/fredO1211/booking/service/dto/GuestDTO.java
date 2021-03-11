@@ -1,7 +1,9 @@
 package com.github.fredO1211.booking.service.dto;
 
 import com.github.fredO1211.booking.domain.Guest;
+import lombok.Getter;
 
+@Getter
 public class GuestDTO {
     private String name;
     private String email;
@@ -11,15 +13,5 @@ public class GuestDTO {
         this.name = guest.getName();
         this.email = guest.getEmail();
         this.phoneNumber = guest.getPhoneNumber();
-    }
-
-    public String getName() {
-        return name;
-    }
-    public String getEmail() {
-        return email;
-    }
-    public String getPhoneNumber() {
-        return phoneNumber;
     }
 }

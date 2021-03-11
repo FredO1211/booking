@@ -2,16 +2,24 @@ package com.github.fredO1211.booking.domain;
 
 import com.github.fredO1211.booking.messageprovider.MessageProvider;
 import com.github.fredO1211.booking.service.dto.BookingDTO;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.Future;
 import java.time.LocalDate;
 
+@NoArgsConstructor
+@Setter
+@Getter
 @Entity
 @Table(name = "bookings")
 public class Booking {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Setter(value = AccessLevel.PRIVATE)
     private Long id;
     @ManyToOne
     @JoinColumn(name = "guest_id")
@@ -29,9 +37,6 @@ public class Booking {
     @JoinColumn(name = "facility_id")
     private Facility facility;
 
-    public Booking() {
-    }
-
     public Booking(Guest guest, LocalDate startOfBooking, LocalDate endOfBooking, String description, Payment payment, Facility facility) {
         this.guest = guest;
         this.startOfBooking = startOfBooking;
@@ -39,70 +44,6 @@ public class Booking {
         this.description = description;
         this.payment = payment;
         this.facility = facility;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Guest getGuest() {
-        return guest;
-    }
-
-    public void setGuest(Guest guest) {
-        this.guest = guest;
-    }
-
-    public LocalDate getStartOfBooking() {
-        return startOfBooking;
-    }
-
-    public void setStartOfBooking(LocalDate startOfBooking) {
-        this.startOfBooking = startOfBooking;
-    }
-
-    public LocalDate getEndOfBooking() {
-        return endOfBooking;
-    }
-
-    public void setEndOfBooking(LocalDate endOfBooking) {
-        this.endOfBooking = endOfBooking;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Payment getPayment() {
-        return payment;
-    }
-
-    public void setPayment(Payment payment) {
-        this.payment = payment;
-    }
-
-    public Facility getFacility() {
-        return facility;
-    }
-
-    public void setFacility(Facility facility) {
-        this.facility = facility;
-    }
-
-    public int getCountOfGuests() {
-        return countOfGuests;
-    }
-
-    public void setCountOfGuests(int countOfGuests) {
-        this.countOfGuests = countOfGuests;
     }
 
     public int getStayLength() {
