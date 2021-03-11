@@ -10,7 +10,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -31,7 +30,7 @@ public class GuestController {
 
     @GetMapping("/page/{index}")
     ResponseEntity<List<Guest>> readAllGuests(@PathVariable int index) {
-        PageRequest page = PageRequest.of(index-1, 12, Sort.by("name"));
+        PageRequest page = PageRequest.of(index - 1, 12, Sort.by("name"));
         return ResponseEntity.ok(service.getAll(page));
     }
 
@@ -53,7 +52,7 @@ public class GuestController {
             return ResponseEntity.noContent().build();
         } catch (EntityNotFoundException e) {
             throw e;
-        }catch (Exception e) {
+        } catch (Exception e) {
             throw new IncorrectInputDataException(e);
         }
     }
