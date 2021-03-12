@@ -16,7 +16,6 @@ public class BookingDTO {
     private String description;
     @Positive
     private int countOfGuests;
-
     public Booking toBooking(BookingDTO dto){
         return new Booking();
     }

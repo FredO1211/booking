@@ -18,14 +18,14 @@ import static org.mockito.Mockito.when;
 class BookingServiceImplTest {
     static BookingRepository repository;
     static BookingServiceImpl service;
-    static EmailProvider mailProvider;
+    static EmailServiceImpl mailProvider;
     static GuestServiceImpl guestService;
     static PaymentServiceImpl paymentService;
 
     @BeforeAll
     static void setup() {
         repository = mock(BookingRepository.class);
-        mailProvider = mock(EmailProvider.class);
+        mailProvider = mock(EmailServiceImpl.class);
         guestService = mock(GuestServiceImpl.class);
         paymentService = mock(PaymentServiceImpl.class);
         service = new BookingServiceImpl(repository, guestService, paymentService, mailProvider);

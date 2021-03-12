@@ -11,4 +11,5 @@ public interface BookingService extends CrudService<Booking, Long>{
     void delete(Long id);
     Booking update(Long id, BookingDTO dto);
     List<SimplifiedBookingDTO> getSimplifiedBookingDTOList(YearMonth month, Long facilityId);
+
 }

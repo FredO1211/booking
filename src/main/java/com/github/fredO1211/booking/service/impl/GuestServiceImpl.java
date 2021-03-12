@@ -64,6 +64,11 @@ public class GuestServiceImpl implements GuestService {
     }
 
     @Override
+    public List<Guest> getAll() {
+        return repository.findAll();
+    }
+
+    @Override
     public void delete(Guest guest) {
         repository.delete(guest);
     }

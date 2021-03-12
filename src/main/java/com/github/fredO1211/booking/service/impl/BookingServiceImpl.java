@@ -5,6 +5,7 @@ import com.github.fredO1211.booking.domain.Payment;
 import com.github.fredO1211.booking.repository.BookingRepository;
 import com.github.fredO1211.booking.service.*;
 import com.github.fredO1211.booking.service.dto.BookingDTO;
+import com.github.fredO1211.booking.service.dto.MessageDTO;
 import com.github.fredO1211.booking.service.dto.SimplifiedBookingDTO;
 import com.github.fredO1211.booking.service.exceptions.EntityNotFoundException;
 import com.github.fredO1211.booking.service.exceptions.UnavailableDateException;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 import javax.validation.Valid;
 import java.time.LocalDate;
 import java.time.YearMonth;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -23,9 +25,9 @@ public class BookingServiceImpl implements BookingService, Validator<Booking> {
     public final BookingRepository repository;
     public final GuestService guestService;
     public final PaymentService paymentService;
-    public final MailProvider provider;
+    public final MailService provider;
 
-    public BookingServiceImpl(BookingRepository repository, GuestServiceImpl guestService, PaymentServiceImpl paymentService, EmailProvider provider) {
+    public BookingServiceImpl(BookingRepository repository, GuestServiceImpl guestService, PaymentServiceImpl paymentService, EmailServiceImpl provider) {
         this.repository = repository;
         this.guestService = guestService;
         this.paymentService = paymentService;
@@ -34,17 +36,25 @@ public class BookingServiceImpl implements BookingService, Validator<Booking> {
 
     @Override
     public Booking save(@Valid Booking booking) {
+        boolean canBeRemove=false;
         Payment paymentToSave = booking.getPayment();
         paymentService.save(paymentToSave);
         try {
             if (booking.getGuest().getId() == null) {
                 guestService.save(booking.getGuest());
+                canBeRemove=true;
             }
 
             BookingValidator.validNewBooking(booking,paymentToSave);
+            Booking result = repository.save(valid(booking));
 
-            return repository.save(valid(booking));
+            provider.send(new MessageDTO("Potwierdzenie", "Potwierdzenie", Collections.singletonList(result.getGuest().getEmail())));
+
+            return result;
         } catch (Exception e) {
+            if(canBeRemove){
+                guestService.delete(booking.getGuest());
+            }
             paymentService.delete(booking.getPayment());
             throw e;
         }

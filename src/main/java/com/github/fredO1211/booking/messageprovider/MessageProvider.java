@@ -28,4 +28,5 @@ public final class MessageProvider {
     public static final String GUEST_NOT_EXISTS_MSG = "Current guest doesn't exist!";
     public static final String GUEST_INCORRECT_DATA_WITH_ID = "Current id exists but other data doesn't match";
     public static final String PAYMENT_NOT_FOUND = "Payment with the given id wasn't found.";
+    public static final String NO_MAILS_FOUND_MSG = "No e-mails in the database.";
 }

@@ -62,7 +62,7 @@ class PaymentServiceImplTest {
 
     @Test
     void shouldChangeDataWhenCodesAreTheSame(){
-        when(repository.isCodeAvailable(anyString())).thenReturn(false);
+        when(repository.isCodeAvailable(anyString())).thenReturn(true);
         Payment toUpdate = new Payment("code", 100, 0, 0, LocalDate.now().plusDays(1));
         Payment source = new Payment("code", 200, 1, 1, LocalDate.now().plusDays(2));
         // when
