@@ -8,7 +8,6 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.hateoas.Link;
-import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.stereotype.Component;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
@@ -23,14 +22,14 @@ public class ExtendsBookingDTO extends BookingDTO {
     private Link facility;
 
     ExtendsBookingDTO fillFields(Booking booking) {
-        payment=linkTo(methodOn(PaymentController.class).getPaymentById(booking.getPayment().getId())).withSelfRel();
+        payment = linkTo(methodOn(PaymentController.class).getPaymentById(booking.getPayment().getId())).withSelfRel();
         guest = linkTo(methodOn(GuestController.class).getGuestId(booking.getGuest().getId())).withSelfRel();
         facility = linkTo(methodOn(FacilityController.class).getFacilityById(booking.getFacility().getId())).withSelfRel();
         super.fillFields(booking);
         return this;
     }
 
-    public static ExtendsBookingDTO toDTO(Booking booking){
+    public static ExtendsBookingDTO toDTO(Booking booking) {
         return new ExtendsBookingDTO().fillFields(booking);
     }
 }
