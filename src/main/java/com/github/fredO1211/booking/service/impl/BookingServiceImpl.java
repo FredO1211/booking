@@ -1,5 +1,6 @@
 package com.github.fredO1211.booking.service.impl;
 
+import com.github.fredO1211.booking.controller.BookingController;
 import com.github.fredO1211.booking.domain.Booking;
 import com.github.fredO1211.booking.domain.Payment;
 import com.github.fredO1211.booking.repository.BookingRepository;
@@ -7,9 +8,11 @@ import com.github.fredO1211.booking.service.*;
 import com.github.fredO1211.booking.service.dto.BookingDTO;
 import com.github.fredO1211.booking.service.dto.MessageDTO;
 import com.github.fredO1211.booking.service.dto.SimplifiedBookingDTO;
+import com.github.fredO1211.booking.service.dto.SimplifiedBookingDTOAssembler;
 import com.github.fredO1211.booking.service.exceptions.EntityNotFoundException;
 import com.github.fredO1211.booking.service.exceptions.UnavailableDateException;
 import org.springframework.data.domain.Pageable;
+import org.springframework.hateoas.CollectionModel;
 import org.springframework.stereotype.Service;
 
 import javax.validation.Valid;
@@ -71,15 +74,21 @@ public class BookingServiceImpl implements BookingService, Validator<Booking> {
     }
 
     @Override
-    public List<SimplifiedBookingDTO> getSimplifiedBookingDTOList(YearMonth month, Long facilityId){
+    public CollectionModel<SimplifiedBookingDTO> getSimplifiedBookingDTOList(YearMonth month, Long facilityId){
         LocalDate from = LocalDate.of(month.getYear(),month.getMonth(),1);
         LocalDate to = LocalDate.of(month.getYear(),month.getMonth(),month.lengthOfMonth());
 
         List<Booking> bookingList = repository.getBookingsBetweenDates(from.toString(),to.toString(),facilityId);
 
-        return bookingList.stream()
-                .map(SimplifiedBookingDTO::new)
-                .collect(Collectors.toList());
+//        List<SimplifiedBookingDTO> bookingDTOS = bookingList.stream()
+//                .map(SimplifiedBookingDTO::new)
+//                .collect(Collectors.toList());
+
+
+        return new SimplifiedBookingDTOAssembler(
+                BookingController.class,
+                SimplifiedBookingDTO.class)
+                .toCollectionModel(bookingList);
     }
 
     @Override

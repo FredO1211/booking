@@ -1,5 +1,6 @@
 package com.github.fredO1211.booking.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.github.fredO1211.booking.messageprovider.MessageProvider;
 import com.github.fredO1211.booking.service.dto.BookingDTO;
 import lombok.AccessLevel;
@@ -46,6 +47,7 @@ public class Booking {
         this.facility = facility;
     }
 
+    @JsonIgnore
     public int getStayLength() {
         return (int) startOfBooking.datesUntil(endOfBooking).count();
     }
