@@ -2,7 +2,6 @@ package com.github.fredO1211.booking.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.github.fredO1211.booking.messageprovider.MessageProvider;
-import com.github.fredO1211.booking.service.dto.BookingDTO;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

@@ -35,7 +35,7 @@ public class GuestController {
     }
 
     @GetMapping("/{id}")
-    ResponseEntity<Guest> getGuestId(@PathVariable Long id) {
+    public ResponseEntity<Guest> getGuestId(@PathVariable Long id) {
         return service.getById(id).map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }

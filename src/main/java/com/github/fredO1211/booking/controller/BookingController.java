@@ -4,6 +4,7 @@ import com.github.fredO1211.booking.domain.Booking;
 import com.github.fredO1211.booking.domain.Facility;
 import com.github.fredO1211.booking.service.BookingService;
 import com.github.fredO1211.booking.service.FacilityService;
+import com.github.fredO1211.booking.service.dto.ExtendsBookingDTO;
 import com.github.fredO1211.booking.service.dto.SimplifiedBookingDTO;
 import com.github.fredO1211.booking.service.exceptions.IncorrectInputDataException;
 import com.github.fredO1211.booking.service.exceptions.UnavailableNameException;
@@ -56,7 +57,7 @@ public class BookingController {
     ResponseEntity<?> createBooking(@RequestBody Booking toCreate) {
         try {
             var result = service.save(toCreate);
-            return ResponseEntity.created(URI.create("/" + result.getId())).body(result);
+            return ResponseEntity.created(URI.create("/" + result.getId())).body(ExtendsBookingDTO.toDTO(result));
         } catch (RuntimeException e) {
             throw new IncorrectInputDataException(e);
         }

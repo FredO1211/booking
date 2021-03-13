@@ -16,7 +16,16 @@ public class BookingDTO {
     private String description;
     @Positive
     private int countOfGuests;
-    public Booking toBooking(BookingDTO dto){
-        return new Booking();
+
+    BookingDTO fillFields(Booking booking) {
+        startOfBooking = booking.getStartOfBooking();
+        endOfBooking = booking.getEndOfBooking();
+        description = booking.getDescription();
+        countOfGuests = booking.getCountOfGuests();
+        return this;
+    }
+
+    public static BookingDTO toDTO(Booking booking){
+        return new BookingDTO().fillFields(booking);
     }
 }

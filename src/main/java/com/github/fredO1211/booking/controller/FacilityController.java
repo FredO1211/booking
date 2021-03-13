@@ -37,7 +37,7 @@ public class FacilityController {
     }
 
     @GetMapping("/{id}")
-    ResponseEntity<Facility> getFacilityById(@PathVariable Long id) {
+    public ResponseEntity<Facility> getFacilityById(@PathVariable Long id) {
         return service.getById(id).map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
