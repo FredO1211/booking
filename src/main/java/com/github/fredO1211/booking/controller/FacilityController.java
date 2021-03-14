@@ -8,6 +8,7 @@ import com.github.fredO1211.booking.service.exceptions.UnavailableNameException;
 import com.github.fredO1211.booking.service.impl.FacilityServiceImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,25 +25,25 @@ public class FacilityController {
         this.service = service;
     }
 
-    @GetMapping()
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<List<Facility>> readAllFacilities() {
         PageRequest page = PageRequest.of(0, 12, Sort.by("name"));
         return ResponseEntity.ok(service.getAll(page));
     }
 
-    @GetMapping("/page/{index}")
+    @GetMapping(value = "/page/{index}", produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<List<Facility>> readAllFacilities(@PathVariable int index) {
         PageRequest page = PageRequest.of(index-1, 12, Sort.by("name"));
         return ResponseEntity.ok(service.getAll(page));
     }
 
-    @GetMapping("/{id}")
+    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Facility> getFacilityById(@PathVariable Long id) {
         return service.getById(id).map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @PostMapping
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<?> createFacility(@RequestBody Facility toCreate) {
         try {
             var result = service.save(toCreate);
@@ -52,7 +53,7 @@ public class FacilityController {
         }
     }
 
-    @PutMapping("/{id}")
+    @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<?> updateFacility(@PathVariable Long id, @RequestBody Facility toUpdate) {
         try {
             service.update(id, toUpdate);

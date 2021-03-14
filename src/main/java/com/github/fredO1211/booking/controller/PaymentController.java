@@ -6,11 +6,10 @@ import com.github.fredO1211.booking.service.exceptions.IncorrectInputDataExcepti
 import com.github.fredO1211.booking.service.exceptions.UnavailableCodeException;
 import com.github.fredO1211.booking.service.impl.PaymentServiceImpl;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -23,43 +22,43 @@ public class PaymentController {
         this.service = service;
     }
 
-    @GetMapping()
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<List<Payment>> readAllPayments() {
         PageRequest page = PageRequest.of(0, 12);
         return ResponseEntity.ok(service.getAll(page));
     }
 
-    @GetMapping("/page/{index}")
+    @GetMapping(value = "/page/{index}", produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<List<Payment>> readAllPayments(@PathVariable int index) {
-        PageRequest page = PageRequest.of(index-1, 12);
+        PageRequest page = PageRequest.of(index - 1, 12);
         return ResponseEntity.ok(service.getAll(page));
     }
 
-    @GetMapping("/{id}")
+    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Payment> getPaymentById(@PathVariable Long id) {
         return service.getById(id).map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @GetMapping("/unpaid")
-    ResponseEntity<List<Payment>> getUnpaid(){
+    @GetMapping(value = "/unpaid", produces = MediaType.APPLICATION_JSON_VALUE)
+    ResponseEntity<List<Payment>> getUnpaid() {
         PageRequest page = PageRequest.of(0, 12);
         return ResponseEntity.ok(service.getUnpaid(page));
     }
 
-    @GetMapping("/unpaid/page/{index}")
-    ResponseEntity<List<Payment>> getUnpaid(@PathVariable int index){
-        PageRequest page = PageRequest.of(index-1, 12);
+    @GetMapping(value = "/unpaid/page/{index}", produces = MediaType.APPLICATION_JSON_VALUE)
+    ResponseEntity<List<Payment>> getUnpaid(@PathVariable int index) {
+        PageRequest page = PageRequest.of(index - 1, 12);
         return ResponseEntity.ok(service.getUnpaid(page));
     }
 
 
-    @PutMapping("/{id}")
+    @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<?> updatePayment(@PathVariable Long id, @RequestBody Payment toUpdate) {
         try {
             service.update(id, toUpdate);
             return ResponseEntity.noContent().build();
-        } catch (EntityNotFoundException | UnavailableCodeException e){
+        } catch (EntityNotFoundException | UnavailableCodeException e) {
             throw e;
         } catch (Exception e) {
             throw new IncorrectInputDataException(e);
@@ -71,7 +70,7 @@ public class PaymentController {
         try {
             service.togglePayment(id);
             return ResponseEntity.noContent().build();
-        } catch (EntityNotFoundException e){
+        } catch (EntityNotFoundException e) {
             throw e;
         }
     }
