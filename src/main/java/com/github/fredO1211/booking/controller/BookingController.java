@@ -1,17 +1,13 @@
 package com.github.fredO1211.booking.controller;
 
 import com.github.fredO1211.booking.domain.Booking;
-import com.github.fredO1211.booking.domain.Facility;
 import com.github.fredO1211.booking.service.BookingService;
-import com.github.fredO1211.booking.service.FacilityService;
 import com.github.fredO1211.booking.service.dto.ExtendsBookingDTO;
 import com.github.fredO1211.booking.service.dto.SimplifiedBookingDTO;
-import com.github.fredO1211.booking.service.exceptions.IncorrectInputDataException;
-import com.github.fredO1211.booking.service.exceptions.UnavailableNameException;
+import com.github.fredO1211.booking.service.exception.IncorrectInputDataException;
+import com.github.fredO1211.booking.service.exception.UnavailableNameException;
 import com.github.fredO1211.booking.service.impl.BookingServiceImpl;
-import com.github.fredO1211.booking.service.impl.FacilityServiceImpl;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;

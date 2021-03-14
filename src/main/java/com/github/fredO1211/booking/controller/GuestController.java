@@ -2,8 +2,8 @@ package com.github.fredO1211.booking.controller;
 
 import com.github.fredO1211.booking.domain.Guest;
 import com.github.fredO1211.booking.service.dto.GuestDTO;
-import com.github.fredO1211.booking.service.exceptions.EntityNotFoundException;
-import com.github.fredO1211.booking.service.exceptions.IncorrectInputDataException;
+import com.github.fredO1211.booking.service.exception.EntityNotFoundException;
+import com.github.fredO1211.booking.service.exception.IncorrectInputDataException;
 import com.github.fredO1211.booking.service.impl.GuestServiceImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;

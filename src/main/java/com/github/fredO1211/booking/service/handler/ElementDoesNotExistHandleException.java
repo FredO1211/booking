@@ -1,10 +1,9 @@
-package com.github.fredO1211.booking.service.handlers;
+package com.github.fredO1211.booking.service.handler;
 
-import com.github.fredO1211.booking.service.exceptions.EntityNotFoundException;
+import com.github.fredO1211.booking.service.exception.EntityNotFoundException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;

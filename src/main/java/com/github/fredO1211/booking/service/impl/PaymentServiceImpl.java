@@ -4,9 +4,9 @@ import com.github.fredO1211.booking.domain.Payment;
 import com.github.fredO1211.booking.repository.PaymentRepository;
 import com.github.fredO1211.booking.service.PaymentService;
 import com.github.fredO1211.booking.service.Validator;
-import com.github.fredO1211.booking.service.exceptions.EntityNotFoundException;
-import com.github.fredO1211.booking.service.exceptions.IncorrectInputDataException;
-import com.github.fredO1211.booking.service.exceptions.UnavailableCodeException;
+import com.github.fredO1211.booking.service.exception.EntityNotFoundException;
+import com.github.fredO1211.booking.service.exception.IncorrectInputDataException;
+import com.github.fredO1211.booking.service.exception.UnavailableCodeException;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 

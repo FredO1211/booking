@@ -4,7 +4,7 @@ import com.github.fredO1211.booking.domain.Guest;
 import com.github.fredO1211.booking.repository.GuestRepository;
 import com.github.fredO1211.booking.service.GuestService;
 import com.github.fredO1211.booking.service.dto.GuestDTO;
-import com.github.fredO1211.booking.service.exceptions.EntityNotFoundException;
+import com.github.fredO1211.booking.service.exception.EntityNotFoundException;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 

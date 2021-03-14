@@ -9,8 +9,8 @@ import com.github.fredO1211.booking.service.dto.BookingDTO;
 import com.github.fredO1211.booking.service.dto.MessageDTO;
 import com.github.fredO1211.booking.service.dto.SimplifiedBookingDTO;
 import com.github.fredO1211.booking.service.dto.SimplifiedBookingDTOAssembler;
-import com.github.fredO1211.booking.service.exceptions.EntityNotFoundException;
-import com.github.fredO1211.booking.service.exceptions.UnavailableDateException;
+import com.github.fredO1211.booking.service.exception.EntityNotFoundException;
+import com.github.fredO1211.booking.service.exception.UnavailableDateException;
 import org.springframework.data.domain.Pageable;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.stereotype.Service;
@@ -21,7 +21,6 @@ import java.time.YearMonth;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class BookingServiceImpl implements BookingService, Validator<Booking> {

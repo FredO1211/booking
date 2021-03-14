@@ -3,7 +3,7 @@ package com.github.fredO1211.booking.service.impl;
 import com.github.fredO1211.booking.domain.Booking;
 import com.github.fredO1211.booking.domain.Facility;
 import com.github.fredO1211.booking.repository.BookingRepository;
-import com.github.fredO1211.booking.service.exceptions.UnavailableDateException;
+import com.github.fredO1211.booking.service.exception.UnavailableDateException;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 

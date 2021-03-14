@@ -2,7 +2,7 @@ package com.github.fredO1211.booking.service.impl;
 
 import com.github.fredO1211.booking.domain.Payment;
 import com.github.fredO1211.booking.repository.PaymentRepository;
-import com.github.fredO1211.booking.service.exceptions.UnavailableCodeException;
+import com.github.fredO1211.booking.service.exception.UnavailableCodeException;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 

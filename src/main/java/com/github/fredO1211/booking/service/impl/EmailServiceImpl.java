@@ -5,8 +5,8 @@ import com.github.fredO1211.booking.service.GuestService;
 import com.github.fredO1211.booking.service.MailService;
 import com.github.fredO1211.booking.service.dto.MessageContentDTO;
 import com.github.fredO1211.booking.service.dto.MessageDTO;
-import com.github.fredO1211.booking.service.exceptions.EntityNotFoundException;
-import com.github.fredO1211.booking.service.exceptions.NoMailsFoundException;
+import com.github.fredO1211.booking.service.exception.EntityNotFoundException;
+import com.github.fredO1211.booking.service.exception.NoMailsFoundException;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Service;
 

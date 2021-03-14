@@ -1,9 +1,9 @@
 package com.github.fredO1211.booking.controller;
 
 import com.github.fredO1211.booking.domain.Payment;
-import com.github.fredO1211.booking.service.exceptions.EntityNotFoundException;
-import com.github.fredO1211.booking.service.exceptions.IncorrectInputDataException;
-import com.github.fredO1211.booking.service.exceptions.UnavailableCodeException;
+import com.github.fredO1211.booking.service.exception.EntityNotFoundException;
+import com.github.fredO1211.booking.service.exception.IncorrectInputDataException;
+import com.github.fredO1211.booking.service.exception.UnavailableCodeException;
 import com.github.fredO1211.booking.service.impl.PaymentServiceImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.MediaType;

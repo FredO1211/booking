@@ -1,4 +1,4 @@
-package com.github.fredO1211.booking.service.exceptions;
+package com.github.fredO1211.booking.service.exception;
 
 import com.github.fredO1211.booking.messageprovider.MessageProvider;
 

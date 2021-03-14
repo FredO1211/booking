@@ -2,8 +2,8 @@ package com.github.fredO1211.booking.service.impl;
 
 import com.github.fredO1211.booking.domain.Facility;
 import com.github.fredO1211.booking.repository.FacilityRepository;
-import com.github.fredO1211.booking.service.exceptions.EntityNotFoundException;
-import com.github.fredO1211.booking.service.exceptions.UnavailableNameException;
+import com.github.fredO1211.booking.service.exception.EntityNotFoundException;
+import com.github.fredO1211.booking.service.exception.UnavailableNameException;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 

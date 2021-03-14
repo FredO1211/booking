@@ -1,19 +1,15 @@
 package com.github.fredO1211.booking.service.impl;
 
-import com.github.fredO1211.booking.domain.Booking;
 import com.github.fredO1211.booking.domain.Facility;
 import com.github.fredO1211.booking.repository.FacilityRepository;
 import com.github.fredO1211.booking.service.FacilityService;
 import com.github.fredO1211.booking.service.Validator;
-import com.github.fredO1211.booking.service.dto.SimplifiedBookingDTO;
-import com.github.fredO1211.booking.service.exceptions.EntityNotFoundException;
-import com.github.fredO1211.booking.service.exceptions.UnavailableNameException;
+import com.github.fredO1211.booking.service.exception.EntityNotFoundException;
+import com.github.fredO1211.booking.service.exception.UnavailableNameException;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.validation.Valid;
-import java.time.LocalDate;
-import java.time.YearMonth;
 import java.util.List;
 import java.util.Optional;
 
