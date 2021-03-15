@@ -33,4 +33,4 @@ build/
 .vscode/
 
 ### DB File ###
-.db
+booking-db.mv.db
