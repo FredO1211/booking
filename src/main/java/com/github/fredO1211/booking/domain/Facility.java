@@ -2,6 +2,7 @@ package com.github.fredO1211.booking.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.github.fredO1211.booking.messageprovider.MessageProvider;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 
 import javax.persistence.*;
@@ -20,6 +21,7 @@ public class Facility {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Setter(value = AccessLevel.PRIVATE)
     @EqualsAndHashCode.Exclude
+    @ApiModelProperty(hidden = true)
     private Long id;
     @NotBlank(message = MessageProvider.EMPTY_NAME_MSG)
     private String name;

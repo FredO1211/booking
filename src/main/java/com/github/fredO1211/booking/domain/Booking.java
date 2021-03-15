@@ -2,6 +2,7 @@ package com.github.fredO1211.booking.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.github.fredO1211.booking.messageprovider.MessageProvider;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,6 +21,7 @@ public class Booking {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Setter(value = AccessLevel.PRIVATE)
+    @ApiModelProperty(hidden = true)
     private Long id;
     @ManyToOne
     @JoinColumn(name = "guest_id")

@@ -2,6 +2,7 @@ package com.github.fredO1211.booking.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.github.fredO1211.booking.messageprovider.MessageProvider;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,6 +24,7 @@ public class Payment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Setter(value = AccessLevel.PRIVATE)
+    @ApiModelProperty(hidden = true)
     private Long id;
     @NotBlank(message = MessageProvider.PAYMENT_EMPTY_CODE_MSG)
     private String code;
