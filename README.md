@@ -1,4 +1,4 @@
-Booking app — aplikacja do zarządzania rezerwacjami hotelowymi. 
+#Booking app — aplikacja do zarządzania rezerwacjami hotelowymi. 
 
 Usługa pozwalająca zarządzać rezerwacjami hotelowymi oparta o system
 CRUDowy. System za pomocą udostępnionego API
@@ -12,12 +12,12 @@ wszystkich gości zarejestrowanych w bazie.
 Aplikacja wspiera automatyczne asynchroniczne wysyłanie potwierdzeń do
 gości.
 
-Wykorzystane technologie:
+####Wykorzystane technologie:
 Java 11, SpringJpa, BazaDanych H2, FlyWay,
 Lombok, RabbitMq, HATEOAS, Junit5, Mockito, Swagger2
 
-Dokumentacja:
-Graficzny interfejs: *host*/swagger-ui/index.html 
+####Dokumentacja:  
+Graficzny interfejs: *host*/swagger-ui/index.html  
 Format JSON: *host*/v2/api-docs
 
 
