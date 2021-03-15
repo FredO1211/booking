@@ -29,4 +29,8 @@ public final class MessageProvider {
     public static final String GUEST_INCORRECT_DATA_WITH_ID = "Current id exists but other data doesn't match";
     public static final String PAYMENT_NOT_FOUND = "Payment with the given id wasn't found.";
     public static final String NO_MAILS_FOUND_MSG = "No e-mails in the database.";
+    //Mails
+    public static final String MAIL_MSG = "Potwierdzam rezerwację.";
+    public static final String MAIL_TITLE = "Potwierdzenie rezerwacji.";
+
 }

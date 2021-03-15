@@ -3,6 +3,7 @@ package com.github.fredO1211.booking.service.impl;
 import com.github.fredO1211.booking.controller.BookingController;
 import com.github.fredO1211.booking.domain.Booking;
 import com.github.fredO1211.booking.domain.Payment;
+import com.github.fredO1211.booking.messageprovider.MessageProvider;
 import com.github.fredO1211.booking.repository.BookingRepository;
 import com.github.fredO1211.booking.service.*;
 import com.github.fredO1211.booking.service.dto.BookingDTO;
@@ -50,7 +51,9 @@ public class BookingServiceImpl implements BookingService, Validator<Booking> {
             BookingValidator.validNewBooking(booking,paymentToSave);
             Booking result = repository.save(valid(booking));
 
-            provider.send(new MessageDTO("Potwierdzenie", "Potwierdzenie", Collections.singletonList(result.getGuest().getEmail())));
+            provider.send(new MessageDTO(MessageProvider.MAIL_TITLE,
+                    MessageProvider.MAIL_MSG,
+                    Collections.singletonList(result.getGuest().getEmail())));
 
             return result;
         } catch (Exception e) {
@@ -78,11 +81,6 @@ public class BookingServiceImpl implements BookingService, Validator<Booking> {
         LocalDate to = LocalDate.of(month.getYear(),month.getMonth(),month.lengthOfMonth());
 
         List<Booking> bookingList = repository.getBookingsBetweenDates(from.toString(),to.toString(),facilityId);
-
-//        List<SimplifiedBookingDTO> bookingDTOS = bookingList.stream()
-//                .map(SimplifiedBookingDTO::new)
-//                .collect(Collectors.toList());
-
 
         return new SimplifiedBookingDTOAssembler(
                 BookingController.class,
