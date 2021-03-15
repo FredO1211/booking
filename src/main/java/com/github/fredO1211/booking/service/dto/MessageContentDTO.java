@@ -12,6 +12,6 @@ public class MessageContentDTO {
     private String message;
 
     public static MessageDTO map(MessageContentDTO messageContentDTO){
-        return new MessageDTO(messageContentDTO.getTitle(),messageContentDTO.getTitle(), new ArrayList<>());
+        return new MessageDTO(messageContentDTO.getTitle(),messageContentDTO.getMessage(), new ArrayList<>());
     }
 }
