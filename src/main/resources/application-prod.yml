@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: 'jdbc:h2:file:/E:/ProjektySpring/bookingApp/booking-db'
+    url: 'jdbc:h2:file:~/booking-db'
   h2.console:
     enabled: true
     path: '/console'
