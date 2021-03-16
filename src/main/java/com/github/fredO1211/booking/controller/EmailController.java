@@ -23,7 +23,7 @@ public class EmailController {
         mailService.sendToAll(messageContentDTO);
     }
 
-    @PostMapping(params = {"/guest_id"}, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(params = {"/{guest_id}"}, consumes = MediaType.APPLICATION_JSON_VALUE)
     void sendMessageToCurrentGuest( @RequestParam Long guestId,@RequestBody MessageContentDTO messageContentDTO){
         mailService.sendToCurrent(guestId, messageContentDTO);
     }
