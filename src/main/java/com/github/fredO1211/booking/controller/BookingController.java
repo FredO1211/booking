@@ -11,7 +11,16 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.net.URI;
 import java.time.YearMonth;
@@ -35,7 +44,7 @@ public class BookingController {
 
     @GetMapping(value = "/page/{index}", produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<List<Booking>> readAllBookings(@PathVariable int index) {
-        PageRequest page = PageRequest.of(index-1, 12);
+        PageRequest page = PageRequest.of(index - 1, 12);
         return ResponseEntity.ok(service.getAll(page));
     }
 
@@ -45,9 +54,9 @@ public class BookingController {
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @GetMapping(value = "/marks",params = {"date","facility_id"}, produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/marks", params = {"date", "facility_id"}, produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<CollectionModel<SimplifiedBookingDTO>> getSimplifiedBookingDTOByMonth(@RequestParam("facility_id") Long id, @RequestParam YearMonth date) {
-        return ResponseEntity.ok(service.getSimplifiedBookingDTOList(date,id));
+        return ResponseEntity.ok(service.getSimplifiedBookingDTOList(date, id));
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -60,7 +69,7 @@ public class BookingController {
         }
     }
 
-    @PutMapping(value = "/{id}",consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<?> updateBooking(@PathVariable Long id, @RequestBody Booking toUpdate) {
         try {
             service.update(id, toUpdate);

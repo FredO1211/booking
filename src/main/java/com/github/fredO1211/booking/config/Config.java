@@ -35,10 +35,10 @@ public class Config {
                 "Booking API Documentation",
                 "1.0",
                 "https://github.com/FredO1211",
-                new Contact("Radosław Fedor","https://github.com/FredO1211", "radoslaw.fedor@gmail.com"),
+                new Contact("Radosław Fedor", "https://github.com/FredO1211", "radoslaw.fedor@gmail.com"),
                 "Apache 2.0",
                 "http://www.apache.org/licenses/LICENSE-2.0",
                 Collections.emptyList()
-                );
+        );
     }
 }

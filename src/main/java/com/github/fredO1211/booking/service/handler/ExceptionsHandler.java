@@ -39,4 +39,9 @@ public class ExceptionsHandler {
     public ResponseEntity<ErrorDTO> handleException(NoMailsFoundException e){
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorDTO(e.getMessage()));
     }
+
+    @ExceptionHandler
+    public ResponseEntity<ErrorDTO> handleException(IllegalArgumentException e){
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorDTO(e.getMessage()));
+    }
 }

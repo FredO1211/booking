@@ -15,6 +15,7 @@ import com.github.fredO1211.booking.service.exception.UnavailableDateException;
 import org.springframework.data.domain.Pageable;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.validation.Valid;
 import java.time.LocalDate;
@@ -38,31 +39,23 @@ public class BookingServiceImpl implements BookingService, Validator<Booking> {
     }
 
     @Override
+    @Transactional
     public Booking save(@Valid Booking booking) {
-        boolean canBeRemove=false;
         Payment paymentToSave = booking.getPayment();
         paymentService.save(paymentToSave);
-        try {
-            if (booking.getGuest().getId() == null) {
-                guestService.save(booking.getGuest());
-                canBeRemove=true;
-            }
 
-            BookingValidator.validNewBooking(booking,paymentToSave);
-            Booking result = repository.save(valid(booking));
-
-            provider.send(new MessageDTO(MessageProvider.MAIL_TITLE,
-                    MessageProvider.MAIL_MSG,
-                    Collections.singletonList(result.getGuest().getEmail())));
-
-            return result;
-        } catch (Exception e) {
-            if(canBeRemove){
-                guestService.delete(booking.getGuest());
-            }
-            paymentService.delete(booking.getPayment());
-            throw e;
+        if (booking.getGuest().getId() == null) {
+            guestService.save(booking.getGuest());
         }
+
+        BookingValidator.validNewBooking(booking, paymentToSave);
+        Booking result = repository.save(valid(booking));
+
+        provider.send(new MessageDTO(MessageProvider.MAIL_TITLE,
+                MessageProvider.MAIL_MSG,
+                Collections.singletonList(result.getGuest().getEmail())));
+
+        return result;
     }
 
     @Override
@@ -76,11 +69,11 @@ public class BookingServiceImpl implements BookingService, Validator<Booking> {
     }
 
     @Override
-    public CollectionModel<SimplifiedBookingDTO> getSimplifiedBookingDTOList(YearMonth month, Long facilityId){
-        LocalDate from = LocalDate.of(month.getYear(),month.getMonth(),1);
-        LocalDate to = LocalDate.of(month.getYear(),month.getMonth(),month.lengthOfMonth());
+    public CollectionModel<SimplifiedBookingDTO> getSimplifiedBookingDTOList(YearMonth month, Long facilityId) {
+        LocalDate from = LocalDate.of(month.getYear(), month.getMonth(), 1);
+        LocalDate to = LocalDate.of(month.getYear(), month.getMonth(), month.lengthOfMonth());
 
-        List<Booking> bookingList = repository.getBookingsBetweenDates(from.toString(),to.toString(),facilityId);
+        List<Booking> bookingList = repository.getBookingsBetweenDates(from.toString(), to.toString(), facilityId);
 
         return new SimplifiedBookingDTOAssembler(
                 BookingController.class,
@@ -137,15 +130,15 @@ public class BookingServiceImpl implements BookingService, Validator<Booking> {
         return booking;
     }
 
-    public BookingDTO valid(Booking currentBooking,BookingDTO source) {
+    public BookingDTO valid(Booking currentBooking, BookingDTO source) {
         List<LocalDate> datesToCheck = DateProvider.getOtherDates(
                 currentBooking.getStartOfBooking(),
                 currentBooking.getEndOfBooking(),
                 source.getStartOfBooking(),
                 source.getEndOfBooking());
 
-        datesToCheck.forEach(d->{
-            if(repository.isAvailable(d.toString(),currentBooking.getId())){
+        datesToCheck.forEach(d -> {
+            if (repository.isAvailable(d.toString(), currentBooking.getId())) {
                 throw new UnavailableDateException();
             }
         });
