@@ -33,4 +33,5 @@ public final class MessageProvider {
     public static final String MAIL_MSG = "Potwierdzam rezerwację.";
     public static final String MAIL_TITLE = "Potwierdzenie rezerwacji.";
 
+    public static final String USER_NOT_FOUND_MSG = "Current user does not exist";
 }
