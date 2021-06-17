@@ -2,8 +2,8 @@ package com.github.fredO1211.booking.config;
 
 import com.github.fredO1211.booking.security.AuthEntryPointJwt;
 import com.github.fredO1211.booking.security.AuthTokenFilter;
-import com.github.fredO1211.booking.security.User;
-import com.github.fredO1211.booking.security.UserRepository;
+import com.github.fredO1211.booking.security.JwtParser;
+import com.github.fredO1211.booking.security.SecurityContextUpdater;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -29,6 +30,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         this.filter = filter;
     }
 
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
@@ -37,17 +39,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
+                .cors()
+                .and()
                 .authorizeRequests()
-                .antMatchers("/login","/login/**","/h2-console","/h2-console/**","/register").permitAll()
+                .antMatchers("/login", "/login/**", "/h2-console", "/h2-console/**", "/register").permitAll()
                 .anyRequest().authenticated()
+                .and()
+                .headers().frameOptions().disable()
+                .and().httpBasic().disable()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .exceptionHandling()
                 .authenticationEntryPoint(authEntryPointJwt)
-                .and()
-                .headers().frameOptions().disable()
-                .and()
-                .httpBasic().disable()
-                .logout().permitAll()
                 .and()
                 .addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);
     }

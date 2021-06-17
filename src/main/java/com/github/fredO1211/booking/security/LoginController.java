@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@CrossOrigin("*")
+@CrossOrigin(origins = "*")
 public class LoginController {
     private final JwtUtils jwtUtils;
     private final AuthenticationManager authenticationManager;
@@ -39,7 +39,6 @@ public class LoginController {
                         loginRequestDto.getUsername(),
                         loginRequestDto.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
-
         return ResponseEntity.ok(jwtUtils.generateJwtToken(authentication));
     }
 }
